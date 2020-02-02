@@ -61,7 +61,7 @@ movement(nw, odd, -5).
 movement(nw, even, -6).
 
 neighbors(A, B) :-
-  neighbors(A, B, D).
+  neighbors(A, B, _).
 
 neighbors(A, B, D) :-
   field(A),
@@ -73,87 +73,123 @@ neighbors(A, B, D) :-
 
 % Pieces
 
-piece(white).
-piece(black).
+man(white).
+man(black).
+man(Color, Field) :-
+  field(Field),
+  man(Color).
 
-men(white).
-men(black).
+king(white).
+king(black).
+king(Color, Field) :-
+  field(Field),
+  king(Color).
 
-initial_piece_of(white, X) :-
+piece(A) :-
+  A = king(_);
+  A = man(_);
+  A = king(_, _);
+  A = man(_, _).
+
+% Board
+
+initial_piece(man(white, X)) :-
   field(X),
   X > 30.
 
-initial_piece_of(black, X) :-
+initial_piece(man(black, X)) :-
   field(X),
   X < 21.
 
-initial_piece_of(none, X) :-
-  \+ initial_piece_of(white, X),
-  \+ initial_piece_of(black, X).
+initial_board(Board) :-
+  findall(Piece, (
+    initial_piece(Piece)
+  ), Board).
 
-initial_board(P) :-
-  findall(C, (
-    field(A),
-    initial_piece_of(C, A)
-  ), P).
+% Turns
 
-% Moves
+shares_line(A, B) :-
+  shares_line(A, B, _).
 
 shares_line(A, B, D) :-
   neighbors(C, B, D),
   (A is C; shares_line(A, C, D)).
 
-%TBD: make them obey the north or south direction.
-valid_moves(piece(_), A, B) :-
-  neighbors(A, B, D).
+move(man(black, From), Piece) :-
+  neighbors(To, From, D),
+  direction(south, D),
+  maybe_becomes_king(
+    man(black, To),
+    Piece).
 
-valid_moves(men(_), A, B) :-
-  shares_line(A, B, _).
+move(man(white, From), Piece) :-
+  neighbors(To, From, D),
+  direction(north, D),
+  maybe_becomes_king(
+    man(white, To),
+    Piece).
 
-% return which this is captured
-valid_captures(piece(_), A, B) :-
-  neighbors(B, A, D),
-  neighbors(_, B, D).
+move(king(Color, From), king(Color, To)) :-
+  shares_line(From, To).
 
-valid_captures(men(_), A, B) :-
-  shares_line(B, A, D),
-  neighbors(_, B, D).
+maybe_becomes_king(man(black, Field), king(black, Field)) :-
+  field(Field),
+  borders(Field, bottom).
+
+maybe_becomes_king(man(white, Field), king(white, Field)) :-
+  field(Field),
+  borders(Field, top).
+
+maybe_becomes_king(A, A) :-
+  \+ maybe_becomes_king(A, king(_, _)).
+
+filter(_,[],[]).
+filter(Predicate,[First|Rest],[First|Tail]) :-
+   filter(Predicate,Rest,Tail).
+filter(Predicate,[_|Rest],Result) :-
+   filter(Predicate,Rest,Result).
+
+move(FromPiece, ToPiece, BoardIn, BoardOut) :-
+  member(FromPiece, BoardIn),
+  \+ member(ToPiece, BoardIn),
+  move(FromPiece, ToPiece),
+  filter(\=(FromPiece), BoardIn, C),
+  append([ToPiece], C, BoardOut).
+
+capture(man(Color, From), man(Color, To)) :-
+  neighbors(C, From, D),
+  neighbors(To, C, D).
+
+capture(king(Color, From), king(Color, To)) :-
+  shares_line(C, From, D),
+  neighbors(To, C, D).
 
 % Capture
 
 % helper
-replace(L, I, X, R) :-
-    Dummy =.. [dummy|L],
-    setarg(I, Dummy, X),
-    Dummy =.. [dummy|R].
+%replace(L, I, X, R) :-
+%    Dummy =.. [dummy|L],
+%    setarg(I, Dummy, X),
+%    Dummy =.. [dummy|R].
 
-moves_to(A, B, B1, B2) :-
-  nth(A, B1, AC),
-  nth(B, B1, BC),
-  piece(AC),
-  \+ piece(BC),
-  field(A),
-  field(B),
-  valid_moves(piece(AC), A, B),
-  replace(B1, A, none, B3),
-  replace(B3, B, AC, B2).
+% TBD: returns the valid moves
+%valid_turn(From, To, TurnType) :-
+%  todo.
 
-captures(A, B, P) :-
-  neighbors(A, C),
-  neighbors(B, C),
-  nth(A, P, Pa),
-  nth(B, P, Pb),
-  nth(C, P, Pc),
-  piece(Pa),
-  piece(Pb),
-  Pa \= Pb,
-  \+ piece(Pc).
+parse_move_type(move, "-").
+parse_move_type(capture, "x").
 
-parse_move_type("-").
-parse_move_type("x").
+parse_token(Token, Text) :-
+  (
+    append(Token, " ", T),
+    append(T, Rest, Text)
+  ); parse_token(Token, Rest).
 
-parse_move(Move, A, B, C) :-
-  parse_move_type(C),
-  append(C, B, N),
-  append(A, N, Move).
-
+parse_move(Turn, FromN, ToN, Move) :-
+  field(FromN),
+  field(ToN),
+  number_codes(FromN, From),
+  number_codes(ToN, To),
+  parse_move_type(Move, MoveChar),
+  append(MoveChar, To, Start),
+  append(From, Start, Turn).
