@@ -35,19 +35,19 @@ borders(A, right) :-
 borders(A, left) :-
   mod(A, 10) =:= 6.
 
-direction_of(sw, A) :-
+neighbor_to(sw, A) :-
   \+ borders(A, bottom),
   \+ borders(A, left).
 
-direction_of(se, A) :-
+neighbor_to(se, A) :-
   \+ borders(A, bottom),
   \+ borders(A, right).
 
-direction_of(nw, A) :-
+neighbor_to(nw, A) :-
   \+ borders(A, top),
   \+ borders(A, left).
 
-direction_of(ne, A) :-
+neighbor_to(ne, A) :-
   \+ borders(A, top),
   \+ borders(A, right).
 
@@ -66,7 +66,7 @@ neighbors(A, B) :-
 neighbors(A, B, D) :-
   field(A),
   field(B),
-  direction_of(D, B),
+  neighbor_to(D, B),
   row_parity_of(T, B),
   movement(D, T, I),
   A is B + I.
@@ -75,121 +75,180 @@ neighbors(A, B, D) :-
 
 man(white).
 man(black).
-man(Color, Field) :-
-  field(Field),
-  man(Color).
 
 king(white).
 king(black).
-king(Color, Field) :-
-  field(Field),
-  king(Color).
 
-piece(A) :-
-  A = king(_);
-  A = man(_);
-  A = king(_, _);
-  A = man(_, _).
+piece(man).
+piece(king).
+piece(Piece, Color, Field) :-
+  color(Color),
+  piece(Piece),
+  field(Field).
 
 % Board
 
-initial_piece(man(white, X)) :-
+board_piece(piece(man, white, X)) :-
   field(X),
   X > 30.
 
-initial_piece(man(black, X)) :-
+board_piece(piece(man, black, X)) :-
   field(X),
   X < 21.
 
-initial_board(Board) :-
-  findall(Piece, (
-    initial_piece(Piece)
-  ), Board).
+board(Board) :-
+  findall(Piece, board_piece(Piece), Board).
+
+test_board(Board) :-
+  Board = [
+    piece(man, black, 22),
+    piece(man, black, 28),
+    piece(man, black, 33),
+    piece(man, white, 29),
+    piece(man, black, 39)].
 
 % Turns
 
-shares_line(A, B) :-
-  shares_line(A, B, _).
+shares_line_with(A, B) :-
+  shares_line_with(A, B, _).
 
-shares_line(A, B, D) :-
-  neighbors(C, B, D),
-  (A is C; shares_line(A, C, D)).
+shares_line_with(A, B, D) :-
+  neighbors(A, B, D).
 
-move(man(black, From), Piece) :-
-  neighbors(To, From, D),
-  direction(south, D),
-  becomes(
-    man(black, To),
-    Piece).
+shares_line_with(A, B, D) :-
+  neighbors(A, C, D),
+  shares_line_with(C, B, D).
 
-move(man(white, From), Piece) :-
-  neighbors(To, From, D),
-  direction(north, D),
-  becomes(
-    man(white, To),
-    Piece).
+% Moving and capturing movement.
 
-move(king(Color, From), king(Color, To)) :-
-  shares_line(From, To).
+color(white, black).
+color(black, white).
 
-becomes(man(black, Field), king(black, Field)) :-
+between_fields(From, To, Captured) :-
+  From =\= To,
+  From >= To,
+  between_fields(To, From, Captured).
+
+between_fields(From, To, Captured) :-
+  From < Captured,
+  To > Captured.
+
+moves_towards_the(black, south).
+moves_towards_the(white, north).
+
+% When moving a man to the oppisite of the board it becomes a king.
+
+becomes_king_when_reaching(black, bottom).
+becomes_king_when_reaching(white, top).
+becomes(piece(man, Color, Field), piece(king, Color, Field)) :-
   field(Field),
-  borders(Field, bottom).
+  becomes_king_when_reaching(Color, Border),
+  borders(Field, Border).
 
-becomes(man(white, Field), king(white, Field)) :-
-  field(Field),
-  borders(Field, top).
+becomes(A, A) :- % Stays the same when it doesn't become a king.
+  \+ becomes(A, piece(king, _, _)).
 
-becomes(A, A) :-
-  \+ becomes(A, king(_, _)).
+% Moving (board)
 
-filter(_,[],[]).
-filter(Predicate,[First|Rest],[First|Tail]) :-
-   filter(Predicate,Rest,Tail).
-filter(Predicate,[_|Rest],Result) :-
-   filter(Predicate,Rest,Result).
+move(piece(man, Color, From), ToPiece) :-
+  neighbors(To, From, Direction),
+  moves_towards_the(Color, ColorDirection),
+  direction(ColorDirection, Direction),
+  becomes(piece(man, Color, To), ToPiece).
+
+move(piece(king, Color, From), piece(king, Color, To)) :-
+  shares_line_with(From, To).
+
+% consider refacroring the move into a king and man move
+move(FromPiece, ToPiece, Board) :-
+  member(FromPiece, Board),
+  move(FromPiece, ToPiece),
+  ToPiece = piece(_, _, To),
+  FromPiece = piece(_, _, From),
+  \+ pieces_between(From, To, _, Board), % is only required when piece is a king
+  \+ member(piece(_, _, To), Board).
 
 move(FromPiece, ToPiece, BoardIn, BoardOut) :-
-  member(FromPiece, BoardIn),
-  \+ member(ToPiece, BoardIn),
-  move(FromPiece, ToPiece),
-  filter(\=(FromPiece), BoardIn, C),
-  append([ToPiece], C, BoardOut).
+  move(FromPiece, ToPiece, BoardIn),
+  replace(FromPiece, ToPiece, BoardIn, BoardOut).
 
-capture(man(Color, From), man(Color, To)) :-
-  neighbors(C, From, D),
-  neighbors(To, C, D).
+pieces_between(From, To, Piece, Board) :-
+  shares_line_with(From, Middle, D),
+  shares_line_with(Middle, To, D),
+  between_fields(From, To, Middle),
+  member(Piece, Board),
+  Piece = piece(_, _, Middle).
 
-capture(king(Color, From), king(Color, To)) :-
-  shares_line(C, From, D),
-  neighbors(To, C, D).
+% Capturing (board)
 
-% Capture
+% Consider refactoring the top three capture into two fn one for man and one
+% for king
 
-% helper
-%replace(L, I, X, R) :-
-%    Dummy =.. [dummy|L],
-%    setarg(I, Dummy, X),
-%    Dummy =.. [dummy|R].
+capture(piece(man, Color, From),
+        piece(man, Color, To),
+        piece(_, Opposite, CaptureField)) :-
+  neighbors(CaptureField, From, D),
+  neighbors(To, CaptureField, D),
+  color(Color, Opposite).
 
-% TBD: returns the valid moves
-%valid_turn(From, To, TurnType) :-
-%  todo.
+capture(piece(king, Color, From),
+        piece(king, Color, To),
+        piece(_, Opposite, CaptureField)) :-
+  shares_line_with(From, CaptureField, D),
+  shares_line_with(CaptureField, To, D),
+  color(Color, Opposite).
 
-parse_move_type(move, "-").
-parse_move_type(capture, "x").
+capture(FromPiece, ToPiece, Captured, Board) :-
+  member(FromPiece, Board),
+  capture(FromPiece, ToPiece, Captured),
+  ToPiece = piece(_, _, To),
+  FromPiece = piece(_, _, From),
+  findall(P, pieces_between(From, To, P, Board), Pieces),
+  length(Pieces, 1),
+  \+ member(piece(_, _, To), Board),
+  member(Captured, Board).
 
-parse_token(Token, Text) :-
-  (
-    append(Token, " ", T),
-    append(T, Rest, Text)
-  ); parse_token(Token, Rest).
+capture(From, To, Captured, Board, BoardOut) :-
+  capture(From, To, Captured, Board),
+  exclude(=(Captured), Board, B1),
+  replace(From, To, B1, BoardOut).
 
-parse_move(Turn, FromN, ToN, Move) :-
-  field(FromN),
-  field(ToN),
-  number_codes(FromN, From),
-  number_codes(ToN, To),
-  parse_move_type(Move, MoveChar),
-  append(MoveChar, To, Start),
-  append(From, Start, Turn).
+capture([From, To], Board) :-
+  capture(From, To, _, Board).
+
+capture([From,To|Rest], Board) :-
+  capture(From, To, _, Board, BoardOut),
+  capture([To|Rest], BoardOut).
+
+length_equals(V, L) :-
+  length(L, LL),
+  LL =\= V.
+
+longest(Lists, ListsOut) :-
+  maplist(length, Lists, X),
+  max_list(X, Y),
+  exclude(length_equals(Y), Lists, ListsOut).
+
+% Maybe also respond with board layout.
+% TODO: check if there is longest king move otherwise all.
+options(Board, Color, Options) :-
+  findall(
+    Capture,
+    (
+      capture(Capture, Board),
+      Capture = [piece(_, Color, _)|_]
+    ),
+    Captures
+  ),
+  Captures = [_|_] -> longest(Captures, Options) ;
+  findall([From, To], (
+    move(From, To, Board),
+    From = piece(_, Color, _)
+  ), Options).
+
+
+% used for capturing
+
+replace(_, _, [], []).
+replace(O, R, [O|T], [R|T2]) :- replace(O, R, T, T2).
+replace(O, R, [H|T], [H|T2]) :- H \= O, replace(O, R, T, T2).

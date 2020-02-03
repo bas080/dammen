@@ -15,4 +15,9 @@ An implementation for validating the legality of a Draughts move.
    (Basically hosts the PDN files and allows players of the match to update the
    PDN file).
 
+## Tasks
+
+- https://www.swi-prolog.org/FAQ/PrologScript.html
+- consider changing piece to piece(man/king, black/white, Field).
+
 [1]: https://en.wikipedia.org/wiki/Portable_Draughts_Notation
