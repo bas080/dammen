@@ -118,30 +118,30 @@ shares_line(A, B, D) :-
 move(man(black, From), Piece) :-
   neighbors(To, From, D),
   direction(south, D),
-  maybe_becomes_king(
+  becomes(
     man(black, To),
     Piece).
 
 move(man(white, From), Piece) :-
   neighbors(To, From, D),
   direction(north, D),
-  maybe_becomes_king(
+  becomes(
     man(white, To),
     Piece).
 
 move(king(Color, From), king(Color, To)) :-
   shares_line(From, To).
 
-maybe_becomes_king(man(black, Field), king(black, Field)) :-
+becomes(man(black, Field), king(black, Field)) :-
   field(Field),
   borders(Field, bottom).
 
-maybe_becomes_king(man(white, Field), king(white, Field)) :-
+becomes(man(white, Field), king(white, Field)) :-
   field(Field),
   borders(Field, top).
 
-maybe_becomes_king(A, A) :-
-  \+ maybe_becomes_king(A, king(_, _)).
+becomes(A, A) :-
+  \+ becomes(A, king(_, _)).
 
 filter(_,[],[]).
 filter(Predicate,[First|Rest],[First|Tail]) :-
