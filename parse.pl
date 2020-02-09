@@ -1,3 +1,4 @@
+module(pdn_parse, [parse_pdn/2]).
 % Parsing a PDN file.
 
 parse_move_type(move, "-").
