@@ -59,7 +59,7 @@ parse_pdn_small(Objects, Codes) :-
     -> !
     : (
       Codes = [Drop|Rest],
-      parse_pdn_flexible(Objects, Rest)
+      parse_pdn_small(Objects, Rest)
     ).
 
   parse_pdn_object(Object, Codes, Rest)
