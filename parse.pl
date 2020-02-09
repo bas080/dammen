@@ -37,11 +37,11 @@ parse_movetext_move(Move, Text) :-
   string_concat(WithoutAsterisk, "*", Text),
   parse_movetext_move(Move, WithoutAsterisk).
 
-parse_pdn([], []) :- !.
+parse_pdn_strict([], []) :- !.
 
-parse_pdn(Objects, Codes) :-
+parse_pdn_strict(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
-  -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
+  -> (parse_pdn_strict(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
     write("parse-warning: "),
     parse_pdn_flexible(Objects, Codes)
