@@ -1,4 +1,4 @@
-load_files(dammen).
+[dammen].
 
 % Parsing a PDN file.
 
