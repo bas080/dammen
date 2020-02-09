@@ -1,4 +1,4 @@
-ensure_loaded(dammen).
+use_module(dammen).
 
 % Parsing a PDN file.
 
