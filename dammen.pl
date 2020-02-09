@@ -1,5 +1,3 @@
-module(dammen, [options/3, options/1]).
-
 field(X) :-
   between(1, 50, X).
 
