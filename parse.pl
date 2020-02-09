@@ -58,7 +58,8 @@ parse_pdn_object(Object, Codes, Rest)
   -> (
     parse_pdn_flexible(RestObjects, Rest),
     Objects = [Object|RestObjects]
-  ) ; (
+  )
+  ; (
     Codes = [Drop|KeepReading],
     char_code(Char, Drop),
     write("Dropped char: "),
