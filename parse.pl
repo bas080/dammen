@@ -112,5 +112,3 @@ split_list(Left, N, Right, Total) :-
 split_list(Left, Right, Total) :-
   split_list(Left, _, Right, Total).
 
-field(X) :-
-  between(1, 50, X).
