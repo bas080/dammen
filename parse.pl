@@ -1,4 +1,5 @@
-use_module('dammen.pl').
+module(parse, [parse_pdn/2]).
+use_module(dammen).
 
 % Parsing a PDN file.
 
