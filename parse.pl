@@ -57,10 +57,8 @@ parse_pdn_flexible(Objects, Codes) :-
   ) ; (
     Codes = [Drop|KeepReading],
     char_code(Char, Drop),
-    write(" ignoring: "),
     write(Char),
-    parse_pdn_flexible(Objects, KeepReading),
-    writeln("")
+    parse_pdn_flexible(Objects, KeepReading).
   ).
 
 parse_pdn_object(Object, Codes, Rest) :-
