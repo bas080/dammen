@@ -229,6 +229,10 @@ longest(Lists, ListsOut) :-
   max_list(X, Y),
   exclude(length_equals(Y), Lists, ListsOut).
 
+options(Options) :-
+  board(Board),
+  Options(Board, white, Options).
+
 % Maybe also respond with board layout.
 % TODO: check if there is longest king move otherwise all.
 options(Board, Color, Options) :-
