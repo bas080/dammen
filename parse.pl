@@ -62,7 +62,7 @@ parse_pdn_small(Objects, Codes) :-
       parse_pdn_small(Objects, Rest)
     ).
 
-  parse_pdn_object(Object, Codes, Rest)
+parse_pdn_object(Object, Codes, Rest)
   -> (
     parse_pdn_flexible(RestObjects, Rest),
     Objects = [Object|RestObjects]
