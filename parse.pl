@@ -41,7 +41,7 @@ parse_pdn([], []) :- !.
 
 parse_pdn(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
-  -> (parse_pdn_strict(RestObjects, Rest), Objects = [Object|RestObjects])
+  -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
     write("parse-warning: "),
     parse_pdn_flexible(Objects, Codes)
