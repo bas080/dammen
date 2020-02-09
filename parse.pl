@@ -37,14 +37,9 @@ parse_movetext_move(Move, Text) :-
   string_concat(WithoutAsterisk, "*", Text),
   parse_movetext_move(Move, WithoutAsterisk).
 
+parse_pdn([], []) :- !.
+
 parse_pdn(Objects, Codes) :-
-  parse_pdn_strict(StrictObjects, Codes)
-  -> Objects = StrictObjects
-  ;  parse_pdn_flexible(Objects, Codes).
-
-parse_pdn_strict([], []) :- !.
-
-parse_pdn_strict(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
   -> (parse_pdn_strict(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
@@ -57,7 +52,7 @@ parse_pdn_flexible([], []) :- !.
 parse_pdn_flexible(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
   -> (
-    parse_pdn_strict(RestObjects, Rest),
+    parse_pdn_flexible(RestObjects, Rest),
     Objects = [Object|RestObjects]
   ) ; (
     Codes = [Drop|KeepReading],
