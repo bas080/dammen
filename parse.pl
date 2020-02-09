@@ -1,4 +1,4 @@
-[dammen].
+ensure_loaded(dammen).
 
 % Parsing a PDN file.
 
