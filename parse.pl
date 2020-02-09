@@ -48,7 +48,7 @@ parse_pdn_strict(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
   -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
-    writeln("Strict parsing failed. Trying forgiving approach."),
+    write("parse-warning: "),
     fail
   ). % Objects = [unparsed(Codes)].
 
