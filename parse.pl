@@ -52,6 +52,12 @@ parse_pdn_strict(Objects, Codes) :-
     fail
   ). % Objects = [unparsed(Codes)].
 
+parse_pdn_hybrid(Objects, Codes) :-
+  parse_pdn_object(Object, Codes, Rest)
+  -> (
+    parse_pdn_hybrid(RestObjects, Rest),
+    Objects = [Object|RestObjects]
+
 parse_pdn_flexible([], []) :- !.
 
 parse_pdn_flexible(Objects, Codes) :-
