@@ -54,14 +54,6 @@ parse_pdn_strict(Objects, Codes) :-
 
 parse_pdn_flexible([], []) :- !.
 
-parse_pdn_small(Objects, Codes) :-
-  parse_pdn_strict(Objects, Codes)
-    -> true
-    ; (
-      Codes = [_|Rest],
-      parse_pdn_small(Objects, Rest)
-    ).
-
 parse_pdn_object(Object, Codes, Rest)
   -> (
     parse_pdn_flexible(RestObjects, Rest),
