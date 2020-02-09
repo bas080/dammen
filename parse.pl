@@ -49,7 +49,7 @@ parse_pdn_strict(Objects, Codes) :-
   -> (parse_pdn_strict(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
     write("parse-warning: "),
-    fail
+    parse_pdn_flexible(Objects, Codes)
   ). % Objects = [unparsed(Codes)].
 
 parse_pdn_flexible([], []) :- !.
