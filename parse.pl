@@ -1,4 +1,5 @@
-module(pdn_parse, [parse_pdn/2]).
+include(dammen).
+
 % Parsing a PDN file.
 
 parse_move_type(move, "-").
