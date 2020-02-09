@@ -57,7 +57,9 @@ parse_pdn_flexible(Objects, Codes) :-
   ) ; (
     Codes = [Drop|KeepReading],
     char_code(Char, Drop),
+    write("parse-warning: "),
     write(Char),
+    writeln(" ignored."),
     parse_pdn_flexible(Objects, KeepReading)
   ).
 
