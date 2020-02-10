@@ -7,9 +7,7 @@ row_of(I, A) :-
   I is ceiling(A / 5).
 
 row_parity_of(odd, A) :-
-  row_of(I, A),
-  mod(I, 2) =:= 1,
-  !.
+  once((row_of(I, A), mod(I, 2) =:= 1).
 
 row_parity_of(even, A) :-
   \+ row_parity_of(odd, A).
