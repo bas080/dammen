@@ -256,6 +256,17 @@ options(Board, Color, Options) :-
     From = piece(_, Color, _)
   ), Options).
 
+option(Option, Options, move(From, To)) :-
+  member(Option, Options),
+  Option = [FromPiece|_],
+  last(Option, ToPiece),
+
+  FromPiece = piece(_, _, From),
+  ToPiece = piece(_, _, To),
+
+  !.
+
+
 % used for capturing
 
 replace(_, _, [], []).
