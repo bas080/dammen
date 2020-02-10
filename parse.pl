@@ -68,10 +68,10 @@ parse_pdn_object(Object, Codes, Rest) :-
   string_codes(Text, Left),
   token(String, Text),
   (
-    parse_tag_pair(Object, String) ->
-    parse_movetext_number(Object, String) ->
-    parse_movetext_turn(Object, String) ->
-    parse_movetext_result(Object, String) ->
+    parse_tag_pair(Object, String);
+    parse_movetext_number(Object, String);
+    parse_movetext_turn(Object, String);
+    parse_movetext_result(Object, String);
     parse_movetext_comment(Object, String)
   ),
   !.
