@@ -237,7 +237,7 @@ longest(Lists, ListsOut) :-
 
 turn(Options) :-
   board(Board),
-  options(Board, white, Options).
+  turn(Board, white, Options).
 
 % Maybe also respond with board layout.
 % TODO: check if there is longest king move otherwise all.
