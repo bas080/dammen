@@ -256,7 +256,6 @@ options(Board, Color, Options) :-
     From = piece(_, Color, _)
   ), Options).
 
-
 % used for capturing
 
 replace(_, _, [], []).
