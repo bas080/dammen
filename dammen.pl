@@ -1,4 +1,4 @@
-module(dammen, [options/3, options/1, option/3, perform/2]).
+module(dammen, [turn/3, turn/1, option/3, perform/2]).
 
 field(X) :-
   between(1, 50, X).
@@ -252,12 +252,13 @@ options(Board, Color, captures(Options)) :-
   ),
   Captures = [_|_] -> longest(Captures, Options), !.
 
-options(Board, Color, moves(Options)) :-
+turn(Board, Color, moves(Options)) :-
   findall([From, To], (
     move(From, To, Board),
     From = piece(_, Color, _)
   ), Options), !.
 
+% consider moving the selecting to cli.
 option(Option, Options, move(From, To)) :-
   member(Option, Options),
   Option = [FromPiece|_],
