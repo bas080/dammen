@@ -5,7 +5,7 @@ field(X) :-
 
 row_parity_of(odd, A) :-
   I is ceiling(A / 5),
-  once((row_of(I, A), mod(I, 2) =:= 1)).
+  once(mod(I, 2) =:= 1).
 
 row_parity_of(even, A) :-
   \+ row_parity_of(odd, A), !.
