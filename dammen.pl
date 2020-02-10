@@ -190,7 +190,7 @@ pieces_between(From, To, Piece, Board) :-
 capture(A) :-
   is_list(A).
 
-capture(Captures, capture(Captures) :- !.
+capture(Captures, capture(Captures)) :- !.
 
 capture(piece(man, Color, From),
         piece(man, Color, To),
