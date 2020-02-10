@@ -3,11 +3,11 @@ module(dammen, [options/3, options/1, option/3, perform/2]).
 field(X) :-
   between(1, 50, X).
 
-row_parity_of(Parity, A) :-
+row_parity_of(Offset, A) :-
   I is A - 1,
   (mod(I, 10) < 5)
-  -> Parity = odd
-  ;  Parity = even,
+  -> Offset = 1
+  ;  Offset = 0,
   !.
 
 direction(north, ne).
