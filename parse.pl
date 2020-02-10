@@ -54,7 +54,7 @@ parse_pdn_flexible(Objects, Codes) :-
     parse_pdn(RestObjects, Rest),
     Objects = [Object|RestObjects]
   ) ; (
-    Codes = [Drop|KeepReading],
+    Codes = [_|KeepReading],
     parse_pdn_flexible(Objects, KeepReading)
   ).
 
