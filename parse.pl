@@ -27,14 +27,10 @@ parse_movetext_number(number(Number), Text) :-
   number_string(Number, Text).
 
 parse_movetext_move(move(From, To), Text) :-
+  (Middle = "-"; Middle = "x"),
   dammen:field(From),
   dammen:field(To),
-  wrap("x", Text, From, To).
-
-parse_movetext_move(move(From, To), Text) :-
-  dammen:field(From),
-  dammen:field(To),
-  wrap("-", Text, From, To).
+  wrap(Middle, Text, From, To).
 
 % Forced moves might have an *
 parse_movetext_move(Move, Text) :-
