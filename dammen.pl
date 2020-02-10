@@ -264,6 +264,17 @@ options(Board, Color, Options) :-
     From = piece(_, Color, _)
   ), Options), !.
 
+perform(capture(Moves), Board, BoardOut) :-
+  captures(Moves, Board, BoardOut).
+
+perform(move(From, To), Board, BoardOut) :-
+  move(From, To, Board, BoardOut).
+
+perform([], A, A) :- !.
+
+perform([Turn|Rest], Board, BoardOut) :-
+  perform(Turn, Board, BoardNext),
+  perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To), Option) :-
   member(Option, Options),
