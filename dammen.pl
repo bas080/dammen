@@ -222,6 +222,7 @@ capture([From,To|Rest], Board, BoardOut) :-
   capture([To|Rest], BoardNext, BoardOut).
 
 capture(Moves, Board) :-
+  is_list(Moves),
   capture(Moves, Board, _).
 
 length_equals(V, L) :-
