@@ -251,7 +251,8 @@ options(Board, Color, Options) :-
     Captures
   ),
   Captures = [_|_],
-  longest(Captures, Options), !.
+  longest(Captures, Options),
+  !.
 
 options(Board, Color, Options) :-
   findall(move(From, To), (
