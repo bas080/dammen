@@ -124,6 +124,8 @@ shares_line_with(A, B, D) :-
 
 color(white, black).
 color(black, white).
+color(white).
+color(black).
 
 between_fields(From, To, Captured) :-
   From =\= To,
