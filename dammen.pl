@@ -253,8 +253,8 @@ options(Board, Color, captures(Options)) :-
   Captures = [_|_] -> longest(Captures, Options), !.
 
 options(Board, Color, Options) :-
-  findall(Move, (
-    Move = move(From, To, Board),
+  findall(move(From, To), (
+    move(From, To, Board),
     From = piece(_, Color, _)
   ), Options), !.
 
