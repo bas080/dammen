@@ -25,16 +25,16 @@ direction(se).
 direction(sw).
 
 borders(A, top) :-
-  A < 6, !.
+  A < 6.
 
 borders(A, bottom) :-
-  A > 45, !.
+  A > 45.
 
 borders(A, right) :-
-  mod(A, 10) =:= 5, !.
+  mod(A, 10) =:= 5.
 
 borders(A, left) :-
-  mod(A, 10) =:= 6, !.
+  mod(A, 10) =:= 6.
 
 neighbor_to(sw, A) :-
   \+ borders(A, bottom),
