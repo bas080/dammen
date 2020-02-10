@@ -111,7 +111,7 @@ shares_line_with(A, B) :-
   shares_line_with(A, B, _).
 
 shares_line_with(A, B, D) :-
-  neighbors(A, B, D), !.
+  neighbors(A, B, D).
 
 shares_line_with(A, B, D) :-
   neighbors(A, C, D),
