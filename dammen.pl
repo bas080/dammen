@@ -222,6 +222,7 @@ captures([From, To], Board) :-
   !.
 
 captures([From,To|Rest], Board, BoardOut) :-
+  writeln(From),
   capture(From, To, _, Board, BoardNext),
   captures([To|Rest], BoardNext, BoardOut).
 
