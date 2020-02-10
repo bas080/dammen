@@ -236,6 +236,7 @@ options(Board, Color, Options) :-
   ), Options), !.
 
 perform(A, BoardOut) :-
+  \+ is_list(A),
   board(Board),
   perform(A, Board, BoardOut).
 
