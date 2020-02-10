@@ -239,8 +239,9 @@ perform(A, BoardOut) :-
   board(Board),
   perform(A, Board, BoardOut).
 
-perform(Move, _, _) :-
+perform(Move, Board, _) :-
   \+ is_list(Move),
+  writeln(Board),
   writeln(Move),
   false.
 
