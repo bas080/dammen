@@ -167,8 +167,6 @@ move(piece(king, Color, From), piece(king, Color, To)) :-
 move(FromPiece, ToPiece, Board) :-
   member(FromPiece, Board),
   move(FromPiece, ToPiece),
-  ToPiece = piece(_, _, To),
-  FromPiece = piece(_, _, From),
   \+ pieces_between(From, To, _, Board), % is only required when piece is a king
   \+ member(piece(_, _, To), Board).
 
