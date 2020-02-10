@@ -183,7 +183,6 @@ pieces_between(From, To, Piece, Board) :-
   member(Piece, Board),
   Piece = piece(_, _, Middle).
 
-
 % Capturing (board)
 
 % Consider refactoring the top three capture into two fn one for man and one
