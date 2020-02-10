@@ -124,9 +124,9 @@ becomes(A, B) :-
 % Moving (board)
 
 move(piece(man, Color, From), ToPiece) :-
-  neighbors(To, From, Direction),
   moves_towards_the(Color, ColorDirection),
   direction(ColorDirection, Direction),
+  neighbors(To, From, Direction),
   becomes(piece(man, Color, To), ToPiece).
 
 move(piece(king, Color, From), piece(king, Color, To)) :-
