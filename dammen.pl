@@ -3,7 +3,7 @@ module(dammen, [options/3, options/1, option/3, perform/2]).
 field(X) :-
   between(1, 50, X).
 
-row_parity_of(Offset, A) :-
+row_direction_offset(Offset, A) :-
   I is A - 1,
   (mod(I, 10) < 5)
   -> Offset = 1
@@ -64,7 +64,7 @@ neighbors(A, B) :-
 neighbors(A, B, D) :-
   field(B),
   can_go(B, D),
-  row_parity_of(Offset, B),
+  row_direction_offset(Offset, B),
   movement(D, I),
   A is B + (Offset + I).
 
