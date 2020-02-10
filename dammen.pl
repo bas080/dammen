@@ -255,6 +255,7 @@ perform([], A, A) :- !.
 perform([Turn|Rest], Board, BoardOut) :-
   write("Where fail?"),
   cli:pp_board(Board),
+  write("here"),
   Turn = turn(_, _, Color),
   writeln("Whut"),
   options(Board, Color, Options),
