@@ -26,7 +26,7 @@ parse_movetext_result(result(Text), Text) :-
 parse_movetext_number(number(Number), Text) :-
   number_string(Number, Text).
 
-parse_movetext_capture(capture(From, To), Text) :-
+parse_movetext_move(move(From, To), Text) :-
   dammen:field(From),
   dammen:field(To),
   wrap("x", Text, From, To).
