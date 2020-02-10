@@ -239,6 +239,10 @@ perform(A, BoardOut) :-
   board(Board),
   perform(A, Board, BoardOut).
 
+perform(Move, _, _) :-
+  writeln(Move),
+  false.
+
 perform(capture(Moves), Board, BoardOut) :-
   captures(Moves, Board, BoardOut).
 
