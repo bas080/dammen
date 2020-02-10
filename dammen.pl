@@ -31,27 +31,6 @@ borders(A, right) :-
 borders(A, left) :-
   mod(A, 10) =:= 6.
 
-can_go(A, sw) :-
-  \+ borders(A, bottom),
-  \+ borders(A, left).
-
-can_go(A, se) :-
-  \+ borders(A, bottom),
-  \+ borders(A, right).
-
-can_go(A, nw) :-
-  \+ borders(A, top),
-  \+ borders(A, left).
-
-can_go(A, ne) :-
-  \+ borders(A, top),
-  \+ borders(A, right).
-
-wind(north, east, ne).
-wind(north, west, nw).
-wind(south, east, se).
-wind(south, west, sw).
-
 movement(sw, 4).
 movement(ne, -5).
 movement(se, 5).
