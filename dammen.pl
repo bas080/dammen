@@ -249,8 +249,8 @@ options(Board, Color, Options) :-
   ), Options), !.
 
 perform(A, BoardOut) :-
-  board(X),
-  perform(A, X, BoardOut).
+  board(Board),
+  perform(A, Board, BoardOut).
 
 perform(capture(Moves), Board, BoardOut) :-
   captures(Moves, Board, BoardOut).
