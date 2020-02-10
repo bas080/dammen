@@ -219,15 +219,11 @@ capture(From, To, Captured, Board, BoardOut) :-
 captures([From, To], Board) :-
   capture(From, To, _, Board).
 
-captures([From, To], Board, BoardOut) :- !.
-  capture(From, To, _, Board, BoardOut).
-
 captures([From,To|Rest], Board, BoardOut) :-
-  writeln("yey"),
   capture(From, To, _, Board, BoardNext),
   capture([To|Rest], BoardNext, BoardOut).
 
-capture([From,To|Rest], Board) :-
+captures([From,To|Rest], Board) :-
   capture(From, To, _, Board, BoardOut),
   capture([To|Rest], BoardOut).
 
@@ -251,7 +247,7 @@ options(Board, Color, Options) :-
   findall(
     Capture,
     (
-      capture(Capture, Board),
+      captures(Capture, Board),
       Capture = [piece(_, Color, _)|_]
     ),
     Captures
