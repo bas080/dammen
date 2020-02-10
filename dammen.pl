@@ -280,7 +280,13 @@ perform([Turn|Rest], Board, BoardOut) :-
 
 option(Options, turn(From, To), Option) :-
   member(Option, Options),
-  Option = move(piece(_, C, From), piece(_, C, To)).
+  Option = move(piece(_, C, From), piece(_, C, To)),
+  !.
+
+option(Options, turn(From, To), Option) :-
+  member(Option, Options),
+  Option = capture([First|_])
+
 
 % perform([Move|Moves], Board) :-
 %   option(Option, Options, Move),
