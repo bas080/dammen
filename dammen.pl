@@ -3,13 +3,12 @@ module(dammen, [options/3, options/1, option/3, perform/2]).
 field(X) :-
   between(1, 50, X).
 
-row_parity_of(odd, A) :-
+row_parity_of(Parity, A) :-
   I is A - 1,
   mod(I, 10) < 5,
+  -> Parity = odd
+  :  Parity = event,
   !.
-
-row_parity_of(even, A) :-
-  \+ row_parity_of(odd, A).
 
 direction(north, ne).
 direction(north, nw).
