@@ -53,14 +53,10 @@ wind(north, west, nw).
 wind(south, east, se).
 wind(south, west, sw).
 
-movement(sw, odd, 5).
-movement(sw, even, 4).
-movement(ne, odd, -4).
-movement(ne, even, -5).
-movement(se, odd, 6).
-movement(se, even, 5).
-movement(nw, odd, -5).
-movement(nw, even, -6).
+movement(sw, 4).
+movement(ne, -5).
+movement(se, 5).
+movement(nw, -6).
 
 neighbors(A, B) :-
   neighbors(A, B, _).
