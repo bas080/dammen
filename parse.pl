@@ -26,11 +26,13 @@ parse_movetext_result(result(Text), Text) :-
 parse_movetext_number(number(Number), Text) :-
   number_string(Number, Text).
 
-parse_movetext_turn(turn(From, To), Text) :-
+parse_movetext_turn(turn(From, To, Opposite), Text, Color) :-
   (Middle = "-"; Middle = "x"),
   dammen:field(From),
   dammen:field(To),
-  wrap(Middle, Text, From, To).
+  wrap(Middle, Text, From, To),
+  dammen:color(Color, Opposite).
+  .
 
 % Forced moves might have an *
 parse_movetext_turn(Move, Text) :-
@@ -63,7 +65,7 @@ parse_pdn_flexible(Objects, Codes) :-
     parse_pdn_flexible(Objects, KeepReading)
   ).
 
-parse_pdn_object(Object, Codes, Rest, Color) :-
+parse_pdn_object(Object, Codes, Rest) :-
   split_list(Left, Rest, Codes),
   string_codes(Text, Left),
   token(String, Text),
