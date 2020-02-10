@@ -203,11 +203,11 @@ capture(piece(king, Color, From),
 capture(FromPiece, ToPiece, Captured, Board) :-
   member(FromPiece, Board),
   capture(FromPiece, ToPiece, Captured),
+  member(Captured, Board),
   ToPiece = piece(_, _, To),
   FromPiece = piece(_, _, From),
   \+ member(piece(_, _, To), Board),
-  \+ findsols(2, P, pieces_between(From, To, P, Board), _),
-  member(Captured, Board).
+  \+ findsols(2, P, pieces_between(From, To, P, Board), _).
 
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
