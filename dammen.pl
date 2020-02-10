@@ -188,7 +188,9 @@ pieces_between(From, To, Piece, Board) :-
 % Consider refactoring the top three capture into two fn one for man and one
 % for king
 
-capture(Captures, capture(Captures)) :- !.
+capture(Captures, capture(Captures)) :-
+  writeln("Calling"),
+  !.
 
 capture(piece(man, Color, From),
         piece(man, Color, To),
