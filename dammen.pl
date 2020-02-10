@@ -65,7 +65,7 @@ neighbors(A, B) :-
   neighbors(A, B, _).
 
 neighbors(A, B, D) :-
-  field(A),
+  field(B),
   neighbor_to(D, B),
   row_parity_of(T, B),
   movement(D, T, I),
