@@ -36,21 +36,22 @@ borders(A, right) :-
 borders(A, left) :-
   mod(A, 10) =:= 6.
 
-neighbor_to(sw, A) :-
+can_go(A, north) :-
+  \+ borders(A, top).
+
+can_go(A, south) :-
   \+ borders(A, bottom),
-  \+ borders(A, left).
 
-neighbor_to(se, A) :-
-  \+ borders(A, bottom),
-  \+ borders(A, right).
+can_go(A, west) :-
+  \+ borders(A, left),
 
-neighbor_to(nw, A) :-
-  \+ borders(A, top),
-  \+ borders(A, left).
+neighbor_to(ne, east) :-
+  \+ borders(A, right),
 
-neighbor_to(ne, A) :-
-  \+ borders(A, top),
-  \+ borders(A, right).
+wind(north, east, ne).
+wind(north, west, nw).
+wind(south, east, se).
+wind(south, west, sw).
 
 movement(sw, odd, 5).
 movement(sw, even, 4).
