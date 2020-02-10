@@ -262,7 +262,8 @@ perform([Turn|Rest], Board, BoardOut) :-
   writeln(Option),
   perform(Option, Board, BoardNext),
   writeln("Performed"),
-  perform(Rest, BoardNext, BoardOut).
+  perform(Rest, BoardNext, BoardOut),
+  writeln("Perform next").
 
 option(Options, turn(From, To, Color), Option) :-
   member(Option, Options),
