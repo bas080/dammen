@@ -217,7 +217,8 @@ capture(From, To, Captured, Board, BoardOut) :-
   replace(From, To, B1, BoardOut).
 
 captures([From, To], Board) :-
-  capture(From, To, _, Board).
+  capture(From, To, _, Board),
+  !.
 
 captures([From,To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
