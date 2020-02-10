@@ -147,7 +147,7 @@ becomes_king_when_reaching(white, top).
 becomes(piece(man, Color, Field), piece(king, Color, Field)) :-
   field(Field),
   becomes_king_when_reaching(Color, Border),
-  borders(Field, Border), !.
+  borders(Field, Border).
 
 becomes(A, A) :-
   A = piece(king, _, _).
