@@ -284,7 +284,6 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, Turn, Option) :-
-  %writeln(Options),
   writeln(Turn),
   fail.
 
