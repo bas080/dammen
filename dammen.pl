@@ -240,7 +240,7 @@ perform(A, BoardOut) :-
   perform(A, Board, BoardOut).
 
 perform(Move, _, _) :-
-  \+ is_list(A),
+  \+ is_list(Move),
   writeln(Move),
   false.
 
