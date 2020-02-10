@@ -218,6 +218,7 @@ capture(From, To, Captured, Board, BoardOut) :-
 
 captures([From, To], Board) :-
   capture(From, To, _, Board),
+  writeln("Done"),
   !.
 
 captures([From,To|Rest], Board, BoardOut) :-
