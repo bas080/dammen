@@ -67,9 +67,11 @@ neighbors(A, B) :-
 
 neighbors(A, B, D) :-
   field(B),
-  neighbor_to(D, B),
+  can_go(A, NS),
+  can_go(A, EW),
+  wind(NS, EW, WD),
   row_parity_of(T, B),
-  movement(D, T, I),
+  movement(WD, T, I),
   A is B + I.
 
 % Pieces
