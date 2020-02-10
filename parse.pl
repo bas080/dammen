@@ -40,7 +40,7 @@ parse_movetext_turn(Move, Text, Color) :-
 parse_pdn([], []) :- !.
 
 parse_pdn(Objects, Codes) :-
-  parse_pdn_object(Object, Codes, Rest)
+  parse_pdn_object(Object, Codes, Rest, Color)
   -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
     writeln("parse-warning: Trying flexible parsing"),
@@ -50,7 +50,7 @@ parse_pdn(Objects, Codes) :-
 parse_pdn_flexible([], []) :- !.
 
 parse_pdn_flexible(Objects, Codes) :-
-  parse_pdn_object(Object, Codes, Rest)
+  parse_pdn_object(Object, Codes, Rest, Color)
   -> (
     parse_pdn(RestObjects, Rest),
     Objects = [Object|RestObjects]
