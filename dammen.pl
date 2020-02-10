@@ -265,6 +265,7 @@ perform([Turn|Rest], Board, BoardOut) :-
 
 option(Options, turn(From, To, _), Option) :-
   member(Option, Options),
+  trace,
   Option = move(piece(_, _, From), piece(_, _, To)),
   !.
 
