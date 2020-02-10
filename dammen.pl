@@ -217,9 +217,12 @@ capture(From, To, Captured, Board, BoardOut) :-
 capture([From, To], Board) :-
   capture(From, To, _, Board).
 
-capture([From,To|Rest], Board) :-
-  capture(From, To, _, Board, BoardOut),
-  capture([To|Rest], BoardOut).
+capture([From,To|Rest], Board, BoardOut) :-
+  capture(From, To, _, Board, BoardNext),
+  capture([To|Rest], BoardNext, BoardOut).
+
+capture(Moves, Board) :-
+  capture(Moves, Board, _).
 
 length_equals(V, L) :-
   length(L, LL),
