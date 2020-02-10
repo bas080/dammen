@@ -8,7 +8,7 @@ row_parity_of(odd, A) :-
   once((row_of(I, A), mod(I, 2) =:= 1)).
 
 row_parity_of(even, A) :-
-  \+ row_parity_of(odd, A).
+  \+ row_parity_of(odd, A), !.
 
 direction(north, ne).
 direction(north, nw).
