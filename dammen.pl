@@ -283,6 +283,10 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Option, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
+option(Options, Turn, Option) :-
+  writeln(Turn),
+  fail.
+
 option(Options, turn(From, To, _), Option) :-
   member(Option, Options),
   Option = move(piece(_, _, From), piece(_, _, To)),
