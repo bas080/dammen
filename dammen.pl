@@ -4,11 +4,12 @@ field(X) :-
   between(1, 50, X).
 
 row_direction_offset(Offset, A) :-
+  once((
   I is A - 1,
   (mod(I, 10) < 5)
   -> Offset = 1
-  ;  Offset = 0,
-  !.
+  ;  Offset = 0
+  )).
 
 direction(north, ne).
 direction(north, nw).
