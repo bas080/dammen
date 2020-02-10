@@ -248,6 +248,10 @@ options(Board, Color, Options) :-
     From = piece(_, Color, _)
   ), Options), !.
 
+perform(A, BoardOut) :-
+  board(X),
+  perform(A, X, BoardOut).
+
 perform(capture(Moves), Board, BoardOut) :-
   captures(Moves, Board, BoardOut).
 
