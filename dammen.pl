@@ -298,7 +298,7 @@ option(Options, turn(From, To), Option) :-
   last(Rest, piece(_, _, To)),
   !.
 
-% used for capturing
+% HELPERS
 
 replace(_, _, [], []).
 replace(O, R, [O|T], [R|T2]) :- replace(O, R, T, T2).
