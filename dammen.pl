@@ -259,7 +259,7 @@ turn(Board, Color, moves(Options)) :-
   ), Options), !.
 
 % consider moving the selecting to cli.
-option(Option, Options, move(From, To)) :-
+option(Option, Options, turn(From, To)) :-
   member(Option, Options),
   Option = [FromPiece|_],
   last(Option, ToPiece),
