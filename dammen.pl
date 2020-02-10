@@ -280,7 +280,6 @@ perform([Turn|Rest], Board, BoardOut) :-
 
 option(Options, turn(From, To), Option) :-
   member(Option, Options),
-  writeln(Option),
   Option = move(piece(_, C, From), piece(_, C, To)).
 
 % perform([Move|Moves], Board) :-
