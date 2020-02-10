@@ -264,7 +264,7 @@ options(Board, Color, Options) :-
     From = piece(_, Color, _)
   ), Options), !.
 
-option(Option, Options, turn(From, To)) :-
+options(Board, Color, Options, turn(From, To), Option) :-
   member(Option, Options),
   Option = [piece(_, _, From)|_],
   last(Option, ToPiece),
