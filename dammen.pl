@@ -219,8 +219,10 @@ capture(From, To, Captured, Board, BoardOut) :-
   exclude(=(Captured), Board, B1),
   replace(From, To, B1, BoardOut).
 
+% Last move in a capture
 captures([From, To], Board, BoardOut) :-
-  capture(From, To, _, Board, BoardOut).
+  capture(From, A, _, Board, BoardOut),
+  becomes(A, To).
 
 captures([From,To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
