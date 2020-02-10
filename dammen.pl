@@ -240,8 +240,8 @@ perform(A, BoardOut) :-
 
 perform(Move, Board, _) :-
   \+ is_list(Move),
-  writeln(Board),
-  writeln(Move),
+  %writeln(Board),
+  %writeln(Move),
   false.
 
 perform(capture(Moves), Board, BoardOut) :-
