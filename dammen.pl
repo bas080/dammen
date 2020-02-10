@@ -245,7 +245,7 @@ options(Board, Color, Options) :-
   findall(
     Moves,
     (
-      captures(Capture, Board),
+      captures(Moves, Board),
       Moves = [piece(_, Color, _)|_]
     ),
     Captures
