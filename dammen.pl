@@ -63,9 +63,8 @@ neighbors(A, B) :-
 
 neighbors(A, B, D) :-
   field(B),
-  can_go(B, D),
-  row_direction_offset(Offset, B),
   movement(D, I),
+  row_direction_offset(Offset, B),
   A is B + (Offset + I),
   \+ row_direction_offset(Offset, A).
 
