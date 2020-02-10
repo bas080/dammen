@@ -8,7 +8,8 @@ row_of(I, A) :-
 
 row_parity_of(odd, A) :-
   row_of(I, A),
-  mod(I, 2) =:= 1.
+  mod(I, 2) =:= 1,
+  !.
 
 row_parity_of(even, A) :-
   \+ row_parity_of(odd, A).
