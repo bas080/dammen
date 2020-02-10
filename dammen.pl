@@ -238,11 +238,11 @@ perform(A, BoardOut) :-
   board(Board),
   perform(A, Board, BoardOut).
 
-% perform(Move, Board, _) :-
-%   \+ is_list(Move),
-%   %writeln(Board),
-%   %writeln(Move),
-%   false.
+perform(Move, Board, _) :-
+  \+ is_list(Move),
+  %writeln(Board),
+  %writeln(Move),
+  false.
 
 perform(capture(Moves), Board, BoardOut) :-
   captures(Moves, Board, BoardOut).
