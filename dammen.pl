@@ -254,7 +254,7 @@ options(Board, Color, captures(Options)) :-
 
 options(Board, Color, Options) :-
   findall(move(From, To), (
-    move(From, To, Board),
+     move(From, To, Board),
     From = piece(_, Color, _)
   ), Options), !.
 
