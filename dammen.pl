@@ -7,7 +7,7 @@ row_parity_of(Parity, A) :-
   I is A - 1,
   (mod(I, 10) < 5)
   -> Parity = odd
-  :  Parity = event,
+  ;  Parity = event,
   !.
 
 direction(north, ne).
