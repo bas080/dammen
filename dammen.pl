@@ -219,7 +219,8 @@ capture(From, To, Captured, Board, BoardOut) :-
 capture([From, To], Board) :-
   capture(From, To, _, Board).
 
-capture([], A, A) :- !.
+capture([From, To], Board, BoardOut) :- !.
+  capture(From, To, _, Board, BoardOut).
 
 capture([From,To|Rest], Board, BoardOut) :-
   writeln("yey"),
