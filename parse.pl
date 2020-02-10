@@ -43,7 +43,6 @@ parse_pdn(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
   -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
   ;  (
-    writeln("parse-warning: Trying flexible parsing"),
     parse_pdn_flexible(Objects, Codes)
   ). % Objects = [unparsed(Codes)].
 
@@ -56,10 +55,6 @@ parse_pdn_flexible(Objects, Codes) :-
     Objects = [Object|RestObjects]
   ) ; (
     Codes = [Drop|KeepReading],
-    char_code(Char, Drop),
-    write("parse-warning: "),
-    write(Char),
-    writeln(" ignored."),
     parse_pdn_flexible(Objects, KeepReading)
   ).
 
