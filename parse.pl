@@ -67,13 +67,13 @@ parse_pdn_object(Object, Codes, Rest) :-
   split_list(Left, Rest, Codes),
   string_codes(Text, Left),
   token(String, Text),
-  once(Object, (
+  (
     parse_tag_pair(Object, String) ->
     parse_movetext_number(Object, String) ->
     parse_movetext_turn(Object, String) ->
     parse_movetext_result(Object, String) ->
     parse_movetext_comment(Object, String)
-  )),
+  ),
   !.
 
 % HELPERS
