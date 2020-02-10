@@ -221,11 +221,11 @@ captures([From, To], Board) :-
 
 captures([From,To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
-  capture([To|Rest], BoardNext, BoardOut).
+  captures([To|Rest], BoardNext, BoardOut).
 
 captures([From,To|Rest], Board) :-
   capture(From, To, _, Board, BoardOut),
-  capture([To|Rest], BoardOut).
+  captures([To|Rest], BoardOut).
 
 length_equals(V, L) :-
   length(L, LL),
