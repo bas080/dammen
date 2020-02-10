@@ -3,12 +3,16 @@ module(dammen, [options/3, options/1, option/3, perform/2]).
 field(X) :-
   between(1, 50, X).
 
+row_of(I, A) :-
+  I is ceiling(A / 5).
+
 row_parity_of(odd, A) :-
-  I is ceiling(A / 5),
-  once(mod(I, 2) =:= 1).
+  row_of(I, A),
+  mod(I, 2) =:= 1,
+  !.
 
 row_parity_of(even, A) :-
-  \+ row_parity_of(odd, A), !.
+  \+ row_parity_of(odd, A).
 
 direction(north, ne).
 direction(north, nw).
@@ -34,19 +38,19 @@ borders(A, left) :-
 
 neighbor_to(sw, A) :-
   \+ borders(A, bottom),
-  \+ borders(A, left), !.
+  \+ borders(A, left).
 
 neighbor_to(se, A) :-
   \+ borders(A, bottom),
-  \+ borders(A, right), !.
+  \+ borders(A, right).
 
 neighbor_to(nw, A) :-
   \+ borders(A, top),
-  \+ borders(A, left), !.
+  \+ borders(A, left).
 
 neighbor_to(ne, A) :-
   \+ borders(A, top),
-  \+ borders(A, right), !.
+  \+ borders(A, right).
 
 movement(sw, odd, 5).
 movement(sw, even, 4).
@@ -61,7 +65,6 @@ neighbors(A, B) :-
   neighbors(A, B, _).
 
 neighbors(A, B, D) :-
-  field(A),
   field(B),
   neighbor_to(D, B),
   row_parity_of(T, B),
@@ -95,6 +98,15 @@ board_piece(piece(man, black, X)) :-
 
 board(Board) :-
   findall(Piece, board_piece(Piece), Board).
+
+test_board(Board) :-
+  Board = [
+    piece(man, black, 22),
+    %piece(man, black, 28),
+    piece(man, black, 32),
+    piece(man, black, 33),
+    piece(man, white, 29),
+    piece(man, black, 39)].
 
 % Turns
 
