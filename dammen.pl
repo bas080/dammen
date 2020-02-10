@@ -142,12 +142,12 @@ moves_towards_the(white, north).
 
 % When moving a man to the oppisite of the board it becomes a king.
 
-becomes_king_when_reaching(black, bottom).
-becomes_king_when_reaching(white, top).
+king_side(black, bottom).
+king_side(white, top).
 becomes(A, B) :-
   (
     A = piece(man, Color, Field),
-    becomes_king_when_reaching(Color, Border),
+    king_side(Color, Border),
     borders(Field, Border)
   ) -> B = piece(king, Color, Field) ; B = A.
 
