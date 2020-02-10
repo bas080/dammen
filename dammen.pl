@@ -1,4 +1,4 @@
-module(dammen, [turn/3, turn/1, option/3, perform/2]).
+module(dammen, [options/3, options/1, option/3, perform/2]).
 
 field(X) :-
   between(1, 50, X).
@@ -235,13 +235,13 @@ longest(Lists, ListsOut) :-
   max_list(X, Y),
   exclude(length_equals(Y), Lists, ListsOut).
 
-turn(Options) :-
+options(Options) :-
   board(Board),
-  turn(Board, white, Options).
+  options(Board, white, Options).
 
 % Maybe also respond with board layout.
 % TODO: check if there is longest king move otherwise all.
-turn(Board, Color, captures(Options)) :-
+options(Board, Color, captures(Options)) :-
   findall(
     Capture,
     (
@@ -252,14 +252,13 @@ turn(Board, Color, captures(Options)) :-
   ),
   Captures = [_|_] -> longest(Captures, Options), !.
 
-turn(Board, Color, moves(Options)) :-
+options(Board, Color, moves(Options)) :-
   findall([From, To], (
     move(From, To, Board),
     From = piece(_, Color, _)
   ), Options), !.
 
-% consider moving the selecting to cli.
-option(Option, Options, turn(From, To)) :-
+option(Option, Options, move(From, To)) :-
   member(Option, Options),
   Option = [FromPiece|_],
   last(Option, ToPiece),
