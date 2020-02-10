@@ -68,9 +68,9 @@ neighbors(A, B) :-
 neighbors(A, B, D) :-
   field(B),
   can_go(B, D),
-  row_parity_of(T, B),
-  movement(D, T, I),
-  A is B + I.
+  row_parity_of(Offset, B),
+  movement(D, I),
+  A is B + (Offset + I).
 
 % Pieces
 
