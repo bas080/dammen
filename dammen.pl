@@ -282,7 +282,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, _, Option) :-
-  \+ member(Option, Options,
+  \+ member(Option, Options),
   writeln("not a valid option"),
   fail.
 
