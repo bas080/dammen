@@ -1,4 +1,4 @@
-module(dammen, [options/3, options/1, option/3, perform/2]).
+$ module(dammen, [options/3, options/1, option/3, perform/2]).
 
 % ⛁ ⛃
 %
