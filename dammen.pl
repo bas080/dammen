@@ -63,6 +63,7 @@ neighbors(A, B) :-
 
 neighbors(A, B, D) :-
   field(B),
+  field(A),
   movement(D, I),
   row_direction_offset(Offset, B),
   A is B + (Offset + I),
