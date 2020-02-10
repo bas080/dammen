@@ -298,13 +298,6 @@ option(Options, turn(From, To), Option) :-
   last(Rest, piece(_, _, To)),
   !.
 
-
-
-% perform([Move|Moves], Board) :-
-%   option(Option, Options, Move),
-%   turn(Action,
-%   perform(Option,
-
 % used for capturing
 
 replace(_, _, [], []).
