@@ -225,8 +225,6 @@ captures([From,To|Rest], Board, BoardOut) :-
 
 captures(Captures, Board) :-
   captures(Captures, Board, _).
-  % capture(From, To, _, Board, BoardOut),
-  % captures([To|Rest], BoardOut).
 
 length_equals(V, L) :-
   length(L, LL),
