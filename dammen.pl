@@ -208,7 +208,7 @@ capture(FromPiece, ToPiece, Captured, Board) :-
   FromPiece = piece(_, _, From),
   \+ member(piece(_, _, To), Board),
   once(findnsols(2, P, pieces_between(From, To, P, Board), Pieces)),
-  length(1, Pieces).
+  length(Pieces, 1).
 
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
