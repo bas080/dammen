@@ -66,7 +66,7 @@ neighbors(A, B, D) :-
   field(A),
   movement(D, I),
   row_direction_offset(Offset, B),
-  A is B + (Offset + I),
+  A is B + Offset + I,
   \+ row_direction_offset(Offset, A).
 
 % Pieces
