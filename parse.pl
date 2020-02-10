@@ -36,6 +36,7 @@ parse_movetext_move(move(From, To), Text) :-
   dammen:field(To),
   wrap("-", Text, From, To).
 
+% Forced moves might have an *
 parse_movetext_move(Move, Text) :-
   string_concat(WithoutAsterisk, "*", Text),
   parse_movetext_move(Move, WithoutAsterisk).
