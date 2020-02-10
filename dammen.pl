@@ -45,7 +45,7 @@ can_go(A, south) :-
 can_go(A, west) :-
   \+ borders(A, left).
 
-neighbor_to(ne, east) :-
+can_go(ne, east) :-
   \+ borders(A, right).
 
 wind(north, east, ne).
