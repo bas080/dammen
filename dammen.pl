@@ -263,9 +263,9 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Option, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
-option(Options, turn(From, To, _), Option) :-
+option(Options, turn(From, To, Color), Option) :-
   member(Option, Options),
-  Option = move(piece(_, _, From), piece(_, _, To)),
+  Option = move(piece(_, Color, From), piece(_, Color, To)),
   !.
 
 option(Options, turn(From, To, _), Option) :-
