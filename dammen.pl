@@ -149,7 +149,7 @@ becomes(piece(man, Color, Field), piece(king, Color, Field)) :-
   becomes_king_when_reaching(Color, Border),
   borders(Field, Border).
 
-becomes(A, A) :- % Stays the same when it doesn't become a king.
+becomes(A, A) :-
   A = piece(king, _, _).
 
 % Moving (board)
