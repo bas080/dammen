@@ -34,19 +34,19 @@ borders(A, left) :-
 
 neighbor_to(sw, A) :-
   \+ borders(A, bottom),
-  \+ borders(A, left).
+  \+ borders(A, left), !.
 
 neighbor_to(se, A) :-
   \+ borders(A, bottom),
-  \+ borders(A, right).
+  \+ borders(A, right), !.
 
 neighbor_to(nw, A) :-
   \+ borders(A, top),
-  \+ borders(A, left).
+  \+ borders(A, left), !.
 
 neighbor_to(ne, A) :-
   \+ borders(A, top),
-  \+ borders(A, right).
+  \+ borders(A, right), !.
 
 movement(sw, odd, 5).
 movement(sw, even, 4).
