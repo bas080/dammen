@@ -236,11 +236,11 @@ options(Board, Color, Options) :-
   ), Options), !.
 
 perform(A, BoardOut) :-
-  \+ is_list(A),
   board(Board),
   perform(A, Board, BoardOut).
 
 perform(Move, _, _) :-
+  \+ is_list(A),
   writeln(Move),
   false.
 
