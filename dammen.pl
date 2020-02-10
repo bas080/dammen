@@ -200,6 +200,7 @@ capture(piece(man, Color, From),
 capture(piece(king, Color, From),
         piece(king, Color, To),
         piece(_, Opposite, CaptureField)) :-
+          writeln(From),
   shares_line_with(From, CaptureField, D),
   shares_line_with(CaptureField, To, D),
   color(Color, Opposite).
