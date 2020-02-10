@@ -277,7 +277,7 @@ perform([], A, A) :- !.
 perform([Turn|Rest], Board, BoardOut) :-
   writeln(Turn),
   options(Board, _, Options),
-  (option(Options, Turn, Option) -> true ; (writeln(Turn), writeln(Options))),
+  option(Options, Turn, Option),
   perform(Option, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
@@ -286,7 +286,7 @@ option(Options, turn(From, To), Option) :-
   Option = move(piece(_, C, From), piece(_, C, To)),
   !.
 
-option(Options, turn(From, To), Option) :-
+option(Options, capture(From, To), Option) :-
   member(Option, Options),
   Option = capture([piece(_, _, From)|Rest]),
   last(Rest, piece(_, _, To)),
