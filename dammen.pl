@@ -32,19 +32,19 @@ borders(A, right) :-
 borders(A, left) :-
   mod(A, 10) =:= 6.
 
-neighbor_to(sw, A) :-
+can_go(A, sw) :-
   \+ borders(A, bottom),
   \+ borders(A, left).
 
-neighbor_to(se, A) :-
+can_go(A, se) :-
   \+ borders(A, bottom),
   \+ borders(A, right).
 
-neighbor_to(nw, A) :-
+can_go(A, nw) :-
   \+ borders(A, top),
   \+ borders(A, left).
 
-neighbor_to(ne, A) :-
+can_go(A, ne) :-
   \+ borders(A, top),
   \+ borders(A, right).
 
@@ -67,7 +67,7 @@ neighbors(A, B) :-
 
 neighbors(A, B, D) :-
   field(B),
-  neighbor_to(D, B),
+  can_go(B, D),
   row_parity_of(T, B),
   movement(D, T, I),
   A is B + I.
