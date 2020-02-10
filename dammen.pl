@@ -210,7 +210,6 @@ longest(Lists, ListsOut) :-
   exclude(length_equals(Y), Lists, ListsOut).
 
 options(Board, Options) :-
-  board(Board),
   options(Board, white, Options).
 
 % Maybe also respond with board layout.
