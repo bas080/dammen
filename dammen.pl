@@ -241,7 +241,7 @@ options(Options) :-
 
 % Maybe also respond with board layout.
 % TODO: check if there is longest king move otherwise all.
-options(Board, Color, Options) :-
+options(Board, Color, captures(Options)) :-
   findall(
     Capture,
     (
@@ -250,7 +250,9 @@ options(Board, Color, Options) :-
     ),
     Captures
   ),
-  Captures = [_|_] -> longest(Captures, Options) ;
+  Captures = [_|_] -> longest(Captures, Options), !
+
+options(Board, Color, turns(Options)) :-
   findall([From, To], (
     move(From, To, Board),
     From = piece(_, Color, _)
@@ -263,6 +265,11 @@ option(Option, Options, move(From, To)) :-
   FromPiece = piece(_, _, From),
   ToPiece = piece(_, _, To),
   !.
+
+perform([Move|Moves], Board) :-
+  option(Option, Options, Move),
+  turn(Action,
+  perform(Option,
 
 % used for capturing
 
