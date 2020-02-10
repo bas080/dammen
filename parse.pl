@@ -33,9 +33,9 @@ parse_movetext_turn(turn(From, To, Color), Text, Color) :-
   wrap(Middle, Text, From, To).
 
 % Forced moves might have an *
-parse_movetext_turn(Move, Text) :-
+parse_movetext_turn(Move, Text, Color) :-
   string_concat(WithoutAsterisk, "*", Text),
-  parse_movetext_turn(Move, WithoutAsterisk).
+  parse_movetext_turn(Move, WithoutAsterisk, Color).
 
 parse_pdn([], []) :- !.
 
