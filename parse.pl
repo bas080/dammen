@@ -75,7 +75,6 @@ parse_pdn_object(Object, Codes, Rest) :-
     parse_tag_pair(Object, String);
     parse_movetext_number(Object, String);
     parse_movetext_move(Object, String);
-    parse_movetext_capture(Object, String);
     parse_movetext_result(Object, String);
     parse_movetext_comment(Object, String)
   ),
