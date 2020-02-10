@@ -26,16 +26,16 @@ parse_movetext_result(result(Text), Text) :-
 parse_movetext_number(number(Number), Text) :-
   number_string(Number, Text).
 
-parse_movetext_move(move(From, To), Text) :-
+parse_movetext_turn(turn(From, To), Text) :-
   (Middle = "-"; Middle = "x"),
   dammen:field(From),
   dammen:field(To),
   wrap(Middle, Text, From, To).
 
 % Forced moves might have an *
-parse_movetext_move(Move, Text) :-
+parse_movetext_turn(Move, Text) :-
   string_concat(WithoutAsterisk, "*", Text),
-  parse_movetext_move(Move, WithoutAsterisk).
+  parse_movetext_turn(Move, WithoutAsterisk).
 
 parse_pdn([], []) :- !.
 
@@ -70,7 +70,7 @@ parse_pdn_object(Object, Codes, Rest) :-
   (
     parse_tag_pair(Object, String);
     parse_movetext_number(Object, String);
-    parse_movetext_move(Object, String);
+    parse_movetext_turn(Object, String);
     parse_movetext_result(Object, String);
     parse_movetext_comment(Object, String)
   ),
