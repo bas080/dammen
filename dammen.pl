@@ -150,7 +150,7 @@ becomes(piece(man, Color, Field), piece(king, Color, Field)) :-
   borders(Field, Border).
 
 becomes(A, A) :- % Stays the same when it doesn't become a king.
-  \+ becomes(A, piece(king, _, _)).
+  A = piece(king, _, _).
 
 % Moving (board)
 
