@@ -259,6 +259,7 @@ options(Board, Color, moves(Options)) :-
   ), Options), !.
 
 option(Option, Options, turn(From, To)) :-
+  writeln(From),
   member(Option, Options),
   Option = [piece(_, _, From)|_],
   last(Option, ToPiece),
