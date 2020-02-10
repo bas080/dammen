@@ -288,12 +288,12 @@ option(Options, Turn, Option) :-
   writeln(Option),
   fail.
 
-option(Options, turn(From, To, Color), Option) :-
+option(Options, turn(From, To, _), Option) :-
   member(Option, Options),
-  Option = move(piece(_, C, From), piece(_, C, To)),
+  Option = move(piece(_, _, From), piece(_, _, To)),
   !.
 
-option(Options, turn(From, To, Color), Option) :-
+option(Options, turn(From, To, _), Option) :-
   member(Option, Options),
   Option = capture([piece(_, _, From)|Rest]),
   last(Rest, piece(_, _, To)),
