@@ -280,8 +280,7 @@ option(Options, turn(From, To), Option) :-
   member(Option, Options),
   Option = [piece(_, _, From)|_],
   last(Option, ToPiece),
-  ToPiece = piece(_, _, To),
-  !.
+  ToPiece = piece(_, _, To).
 
 % perform([Move|Moves], Board) :-
 %   option(Option, Options, Move),
