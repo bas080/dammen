@@ -32,7 +32,6 @@ parse_movetext_turn(turn(From, To, Opposite), Text, Color) :-
   dammen:field(To),
   wrap(Middle, Text, From, To),
   dammen:color(Color, Opposite).
-  .
 
 % Forced moves might have an *
 parse_movetext_turn(Move, Text) :-
