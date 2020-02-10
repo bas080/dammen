@@ -187,6 +187,9 @@ pieces_between(From, To, Piece, Board) :-
 % Consider refactoring the top three capture into two fn one for man and one
 % for king
 
+capture(A) :- !
+  is_list(A).
+
 capture(Captures, capture(Captures) :- !.
 
 capture(piece(man, Color, From),
