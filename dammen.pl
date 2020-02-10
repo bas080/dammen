@@ -36,16 +36,20 @@ borders(A, right) :-
 borders(A, left) :-
   mod(A, 10) =:= 6.
 
-can_go(A, north) :-
-  \+ borders(A, top).
-
-can_go(A, south) :-
-  \+ borders(A, bottom).
-
-can_go(A, west) :-
+neighbor_to(sw, A) :-
+  \+ borders(A, bottom),
   \+ borders(A, left).
 
-can_go(A, east) :-
+neighbor_to(se, A) :-
+  \+ borders(A, bottom),
+  \+ borders(A, right).
+
+neighbor_to(nw, A) :-
+  \+ borders(A, top),
+  \+ borders(A, left).
+
+neighbor_to(ne, A) :-
+  \+ borders(A, top),
   \+ borders(A, right).
 
 wind(north, east, ne).
@@ -67,11 +71,9 @@ neighbors(A, B) :-
 
 neighbors(A, B, D) :-
   field(B),
-  can_go(B, NS),
-  can_go(B, EW),
-  wind(NS, EW, WD),
+  neighbor_to(D, B),
   row_parity_of(T, B),
-  movement(WD, T, I),
+  movement(D, T, I),
   A is B + I.
 
 % Pieces
