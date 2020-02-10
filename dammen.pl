@@ -240,7 +240,7 @@ longest(Lists, ListsOut) :-
   max_list(X, Y),
   exclude(length_equals(Y), Lists, ListsOut).
 
-options(Options) :-
+options(Board, Options) :-
   board(Board),
   options(Board, white, Options).
 
