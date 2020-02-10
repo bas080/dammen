@@ -145,12 +145,11 @@ moves_towards_the(white, north).
 becomes_king_when_reaching(black, bottom).
 becomes_king_when_reaching(white, top).
 becomes(A, B) :-
-  A = piece(man, Color, Field)
-  field(Field),
-  becomes_king_when_reaching(Color, Border),
-  borders(Field, Border)
-  -> B = piece(king, Color, Field)
-  ; B = A.
+  (
+    A = piece(man, Color, Field)
+    becomes_king_when_reaching(Color, Border),
+    borders(Field, Border)
+  ) -> B = piece(king, Color, Field) ; B = A.
 
 % Moving (board)
 
