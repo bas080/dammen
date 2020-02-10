@@ -220,7 +220,6 @@ captures([From, To], Board, BoardOut) :-
   capture(From, To, _, Board, BoardOut).
 
 captures([From,To|Rest], Board, BoardOut) :-
-  writeln(From),
   capture(From, To, _, Board, BoardNext),
   captures([To|Rest], BoardNext, BoardOut).
 
