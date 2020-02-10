@@ -280,6 +280,13 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Option, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
+option(Options, _, Option) :-
+  writeln(Option),
+  writeln(Options),
+  % \+ member(Option, Options),
+  % writeln("not a valid option"),
+  fail.
+
 option(Options, turn(From, To), Option) :-
   member(Option, Options),
   Option = move(piece(_, C, From), piece(_, C, To)),
