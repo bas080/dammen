@@ -149,7 +149,7 @@ becomes(A, B) :-
   field(Field),
   becomes_king_when_reaching(Color, Border),
   borders(Field, Border)
-  -> B = piece(king, Color, Field),
+  -> B = piece(king, Color, Field)
   ; B = A.
 
 % Moving (board)
