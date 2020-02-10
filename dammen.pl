@@ -4,7 +4,8 @@ field(X) :-
   between(1, 50, X).
 
 row_parity_of(odd, A) :-
-  mod(A - 1, 10) =< 5,
+  I is A - 1,
+  mod(I, 10) =< 5,
   !.
 
 row_parity_of(even, A) :-
