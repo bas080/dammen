@@ -66,7 +66,8 @@ neighbors(A, B, D) :-
   can_go(B, D),
   row_direction_offset(Offset, B),
   movement(D, I),
-  A is B + (Offset + I).
+  A is B + (Offset + I),
+  \+ row_direction_offset(Offset, B).
 
 % Pieces
 
