@@ -264,7 +264,6 @@ option(Option, Options, move(From, To)) :-
   ToPiece = piece(_, _, To),
   !.
 
-
 % used for capturing
 
 replace(_, _, [], []).
