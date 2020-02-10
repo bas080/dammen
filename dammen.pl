@@ -241,7 +241,7 @@ options(Options) :-
 
 % Maybe also respond with board layout.
 % TODO: check if there is longest king move otherwise all.
-options(Board, Color, captures(Options)) :-
+turn(Board, Color, captures(Options)) :-
   findall(
     Capture,
     (
