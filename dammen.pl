@@ -95,15 +95,6 @@ board_piece(piece(man, black, X)) :-
 board(Board) :-
   findall(Piece, board_piece(Piece), Board).
 
-test_board(Board) :-
-  Board = [
-    piece(man, black, 22),
-    %piece(man, black, 28),
-    piece(man, black, 32),
-    piece(man, black, 33),
-    piece(man, white, 29),
-    piece(man, black, 39)].
-
 % Turns
 
 shares_line_with(A, B) :-
