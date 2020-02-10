@@ -67,8 +67,8 @@ neighbors(A, B) :-
 
 neighbors(A, B, D) :-
   field(B),
-  can_go(A, NS),
-  can_go(A, EW),
+  can_go(B, NS),
+  can_go(B, EW),
   wind(NS, EW, WD),
   row_parity_of(T, B),
   movement(WD, T, I),
