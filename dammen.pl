@@ -7,7 +7,8 @@ row_parity_of(Offset, A) :-
   I is A - 1,
   (mod(I, 10) < 5)
   -> Offset = 1
-  ;  Offset = 0.
+  ;  Offset = 0,
+  !.
 
 direction(north, ne).
 direction(north, nw).
