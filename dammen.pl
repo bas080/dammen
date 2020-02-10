@@ -40,13 +40,13 @@ can_go(A, north) :-
   \+ borders(A, top).
 
 can_go(A, south) :-
-  \+ borders(A, bottom),
+  \+ borders(A, bottom).
 
 can_go(A, west) :-
-  \+ borders(A, left),
+  \+ borders(A, left).
 
 neighbor_to(ne, east) :-
-  \+ borders(A, right),
+  \+ borders(A, right).
 
 wind(north, east, ne).
 wind(north, west, nw).
