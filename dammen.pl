@@ -1,4 +1,4 @@
-module(dammen, [options/3, options/1]).
+module(dammen, [options/3, options/1, option/3]).
 
 field(X) :-
   between(1, 50, X).
@@ -260,10 +260,8 @@ option(Option, Options, move(From, To)) :-
   member(Option, Options),
   Option = [FromPiece|_],
   last(Option, ToPiece),
-
   FromPiece = piece(_, _, From),
   ToPiece = piece(_, _, To),
-
   !.
 
 
