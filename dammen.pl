@@ -105,7 +105,7 @@ test_board(Board) :-
     %piece(man, black, 28),
     piece(man, black, 32),
     piece(man, black, 33),
-    piece(man, white, 29),
+    % piece(man, white, 29),
     piece(man, black, 39)].
 
 % Turns
