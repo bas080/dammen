@@ -125,13 +125,14 @@ color(white).
 color(black).
 
 between_fields(From, To, Captured) :-
-  From =\= To,
   From >= To,
   between_fields(To, From, Captured).
 
 between_fields(From, To, Captured) :-
+  From =\= To,
   From < Captured,
-  To > Captured.
+  To > Captured,
+  !.
 
 moves_towards_the(black, south).
 moves_towards_the(white, north).
