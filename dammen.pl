@@ -216,10 +216,8 @@ capture(From, To, Captured, Board, BoardOut) :-
   exclude(=(Captured), Board, B1),
   replace(From, To, B1, BoardOut).
 
-captures([From, To], Board) :-
-  capture(From, To, _, Board),
-  writeln("Done"),
-  !.
+captures([From, To], Board, BoardOut) :-
+  capture(From, To, _, Board, BoardOut).
 
 captures([From,To|Rest], Board, BoardOut) :-
   writeln(From),
