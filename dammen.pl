@@ -149,8 +149,8 @@ becomes(piece(man, Color, Field), piece(king, Color, Field)) :-
   becomes_king_when_reaching(Color, Border),
   borders(Field, Border).
 
-becomes(A, A) :-
-  A = piece(king, _, _).
+becomes(A, A) :- % Stays the same when it doesn't become a king.
+  \+ becomes(A, piece(king, _, _)).
 
 % Moving (board)
 
@@ -200,7 +200,6 @@ capture(piece(man, Color, From),
 capture(piece(king, Color, From),
         piece(king, Color, To),
         piece(_, Opposite, CaptureField)) :-
-          writeln(From),
   shares_line_with(From, CaptureField, D),
   shares_line_with(CaptureField, To, D),
   color(Color, Opposite).
@@ -279,9 +278,9 @@ perform([Turn|Rest], Board, BoardOut) :-
   writeln(Board),
   Turn = turn(_, _, Color),
 
+  writeln(Color),
+
   options(Board, Color, Options),
-  writeln("Options:"),
-  writeln(Options),
   option(Options, Turn, Option),
   perform(Option, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
