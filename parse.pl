@@ -39,9 +39,6 @@ parse_movetext_turn(Move, Text) :-
 
 parse_pdn([], []) :- !.
 
-parse_pdn(Objects, []) :-
-  repl
-
 parse_pdn(Objects, Codes) :-
   parse_pdn_object(Object, Codes, Rest)
   -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
