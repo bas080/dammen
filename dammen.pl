@@ -275,6 +275,7 @@ perform(move(From, To), Board, BoardOut) :-
 perform([], A, A) :- !.
 
 perform([Turn|Rest], Board, BoardOut) :-
+  writeln(Board),
   Turn = turn(_, _, Color),
 
   writeln(Color),
@@ -285,7 +286,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, Turn, Option) :-
-  writeln(Options),
+  %writeln(Options),
   writeln(Turn),
   fail.
 
