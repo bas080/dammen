@@ -276,7 +276,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Turn, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
-option(Options, turn(From, To), Option) :-
+option(Options, move(From, To), Option) :-
   member(Option, Options),
   Option = [piece(_, _, From)|_],
   last(Option, ToPiece),
