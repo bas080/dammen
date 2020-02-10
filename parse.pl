@@ -63,7 +63,7 @@ parse_pdn_flexible(Objects, Codes) :-
     parse_pdn_flexible(Objects, KeepReading)
   ).
 
-parse_pdn_object(Object, Codes, Rest) :-
+parse_pdn_object(Object, Codes, Rest, Color) :-
   split_list(Left, Rest, Codes),
   string_codes(Text, Left),
   token(String, Text),
