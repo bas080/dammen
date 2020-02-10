@@ -235,7 +235,7 @@ longest(Lists, ListsOut) :-
   max_list(X, Y),
   exclude(length_equals(Y), Lists, ListsOut).
 
-options(Options) :-
+turn(Options) :-
   board(Board),
   options(Board, white, Options).
 
