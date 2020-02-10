@@ -255,7 +255,7 @@ options(Board, Color, Options) :-
   ),
   Captures = [_|_],
   longest(Captures, A),
-  maplist(capture, A),
+  maplist(capture, A, Options),
   !.
 
 options(Board, Color, Options) :-
