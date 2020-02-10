@@ -3,12 +3,8 @@ module(dammen, [options/3, options/1, option/3, perform/2]).
 field(X) :-
   between(1, 50, X).
 
-row_of(I, A) :-
-  I is ceiling(A / 5).
-
 row_parity_of(odd, A) :-
-  row_of(I, A),
-  mod(I, 2) =:= 1,
+  mod(I, 10) =< 5,
   !.
 
 row_parity_of(even, A) :-
