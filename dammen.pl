@@ -25,12 +25,6 @@ borders(A, top) :-
 borders(A, bottom) :-
   A > 45.
 
-borders(A, right) :-
-  mod(A, 10) =:= 5.
-
-borders(A, left) :-
-  mod(A, 10) =:= 6.
-
 movement(sw, 4).
 movement(ne, -5).
 movement(se, 5).
