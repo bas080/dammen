@@ -163,7 +163,7 @@ move(piece(king, Color, From), piece(king, Color, To)) :-
   shares_line_with(From, To).
 
 % consider refacroring the move into a king and man move
-move(FromPiece, ToPiece, Board) :-
+move(move(FromPiece, ToPiece), Board) :-
   member(FromPiece, Board),
   move(FromPiece, ToPiece),
   ToPiece = piece(_, _, To),
@@ -253,8 +253,8 @@ options(Board, Color, captures(Options)) :-
   Captures = [_|_] -> longest(Captures, Options), !.
 
 options(Board, Color, Options) :-
-  findall(move(From, To), (
-     move(From, To, Board),
+  findall(Move, (
+     move(Move, Board),
     From = piece(_, Color, _)
   ), Options), !.
 
