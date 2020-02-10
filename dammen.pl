@@ -173,12 +173,6 @@ move(FromPiece, ToPiece, BoardIn, BoardOut) :-
   move(FromPiece, ToPiece, BoardIn),
   replace(FromPiece, ToPiece, BoardIn, BoardOut).
 
-moves([], B, B) :- !.
-
-moves([FromPiece,ToPiece|Pieces], BoardIn, BoardOut):-
-  move(FromPiece, ToPiece, BoardIn, NextBoard),
-  moves([ToPiece|Pieces], NextBoard, BoardOut).
-
 pieces_between(From, To, Piece, Board) :-
   shares_line_with(From, Middle, D),
   shares_line_with(Middle, To, D),
