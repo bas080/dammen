@@ -285,7 +285,10 @@ option(Options, turn(From, To), Option) :-
 
 option(Options, turn(From, To), Option) :-
   member(Option, Options),
-  Option = capture([First|_])
+  Option = capture([piece(_, _, From)|Rest]),
+  last(Rest, piece(_, _, To)),
+  !.
+
 
 
 % perform([Move|Moves], Board) :-
