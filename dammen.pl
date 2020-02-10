@@ -223,8 +223,8 @@ captures([From,To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
   captures([To|Rest], BoardNext, BoardOut).
 
-captures([From,To|Rest], Board) :-
-  captures([From,To|Rest], Board, _) :-
+captures(Captures, Board) :-
+  captures(Captures, Board, _).
   % capture(From, To, _, Board, BoardOut),
   % captures([To|Rest], BoardOut).
 
