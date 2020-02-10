@@ -275,7 +275,8 @@ perform(move(From, To), Board, BoardOut) :-
 perform([], A, A) :- !.
 
 perform([Turn|Rest], Board, BoardOut) :-
-  perform(Turn, Board, BoardNext),
+  options(Board, _, Options),
+  perform(Options, Turn, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To), Option) :-
