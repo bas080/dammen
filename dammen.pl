@@ -240,11 +240,12 @@ options(Options) :-
 % TODO: check if there is longest king move otherwise all.
 options(Board, Color, Options) :-
   color(Color),
+  color(Color, Opposite).
   findall(
     Capture,
     (
       capture(Capture, Board),
-      Capture = [piece(_, Color, _)|_]
+      Capture = [piece(_, Opposite, _)|_]
     ),
     Captures
   ),
