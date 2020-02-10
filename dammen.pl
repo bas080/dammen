@@ -277,7 +277,7 @@ perform([], A, A) :- !.
 perform([Turn|Rest], Board, BoardOut) :-
   writeln(Turn),
   options(Board, _, Options),
-  option(Options, Turn, Option) -> true ; (writeln(Turn), writeln(Options)),
+  (option(Options, Turn, Option) -> true ; (writeln(Turn), writeln(Options))),
   perform(Option, Board, BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
