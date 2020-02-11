@@ -191,6 +191,7 @@ capture(From, To, Captured, Board, BoardOut) :-
 % Last move in a capture
 captures([From, To], Board, BoardOut) :-
   capture(From, A, _, Board, BoardOut),
+  writeln(To),
   becomes(A, To).
 
 captures([From,To|Rest], Board, BoardOut) :-
