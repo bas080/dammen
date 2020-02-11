@@ -19,6 +19,7 @@ parse_tag_pair(tag_pair(TagPair), Text) :-
 result("1-0").
 result("0-1").
 result("1/2-1/2").
+result("1-1").
 
 parse_movetext_result(result(Text), Text) :-
   result(Text).
