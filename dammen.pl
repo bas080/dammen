@@ -244,17 +244,12 @@ perform(capture(Moves), Board, BoardOut) :-
 perform(move(From, To), Board, BoardOut) :-
   move(From, To, Board, BoardOut).
 
-perform([], A,A) :-
-  writeln("Reached end"), !.
-
 perform([Turn|Rest], Board, BoardOut) :-
   cli:pp_board(Board),
   Turn = turn(_, _, Color),
   options(Board, Color, Options),
   option(Options, Turn, Option),
-  writeln(Option),
   perform(Option, Board, BoardNext),
-  writeln(BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To, Color), Option) :-
