@@ -81,7 +81,7 @@ test_board(Board) :-
 % Turns
 
 shares_line_with(A, B) :-
-  shares_line_with(A, B, _), !.
+  shares_line_with(A, B, _).
 
 shares_line_with(A, B, D) :-
   neighbors(A, B, D).
