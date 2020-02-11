@@ -251,21 +251,14 @@ perform(move(From, To), Board, BoardOut) :-
   move(From, To, Board, BoardOut).
 
 perform([Turn|Rest], Board, BoardOut) :-
-  writeln("Where fail?"),
   cli:pp_board(Board),
   write("here"),
   Turn = turn(_, _, Color),
-  writeln("Whut"),
   options(Board, Color, Options),
-  writeln(Options),
   option(Options, Turn, Option),
   writeln(Option),
   perform(Option, Board, BoardNext),
-  writeln("Performed"),
-  writeln(Rest),
-  writeln(BoardNext),
-  perform(Rest, BoardNext, BoardOut),
-  writeln("Perform next").
+  perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To, Color), Option) :-
   member(Option, Options),
