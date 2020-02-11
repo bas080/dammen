@@ -198,7 +198,7 @@ captures([From, To, Next|Rest], Board, BoardOut) :-
   shares_line_with(From, To, D),
   shares_line_with(Next, To, \+ D),
   capture(From, To, _, Board, BoardNext),
-  captures([To|Rest], BoardNext, BoardOut).
+  captures([To, Next|Rest], BoardNext, BoardOut).
 
 captures(Captures, Board) :-
   captures(Captures, Board, _).
