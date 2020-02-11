@@ -249,7 +249,9 @@ perform(capture(Moves), Board, BoardOut) :-
 
 perform(move(From, To), Board, BoardOut) :-
   writeln("Called"),
-  move(From, To, Board, BoardOut).
+  move(From, To, Board, BoardOut),
+  writeln("Love"),
+  .
 
 perform([Turn|Rest], Board, BoardOut) :-
   cli:pp_board(Board),
