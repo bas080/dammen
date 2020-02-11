@@ -192,7 +192,7 @@ capture(From, To, Captured, Board, BoardOut) :-
 % Last move in a capture
 captures([From, To], Board, BoardOut) :-
   capture(From, A, _, Board),
-  becomes(To, A),
+  becomes(A, To),
   replace(A, To, Board, BoardOut).
 
 captures([From,To|Rest], Board, BoardOut) :-
