@@ -264,7 +264,6 @@ perform([Turn|Rest], Board, BoardOut) :-
   writeln("Performed"),
   writeln(Rest),
   writeln(BoardNext),
-  trace,
   perform(Rest, BoardNext, BoardOut),
   writeln("Perform next").
 
