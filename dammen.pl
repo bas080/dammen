@@ -192,6 +192,7 @@ capture(From, To, Captured, Board, BoardOut) :-
 captures([From, To], Board, BoardOut) :-
   capture(From, A, _, Board),
   becomes(A, To),
+  writeln("Captures"),
   writeln(To),
   capture(From, To, _, Board, BoardOut).
 
