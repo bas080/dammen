@@ -14,6 +14,8 @@ An implementation for validating the legality of a Draughts move.
    (Basically hosts the PDN files and allows players of the match to update the
    PDN file).
 
+4. Archive games by putting to an FTP server.
+
 ## Credits
 
 Ik wijd deze software toe aan Rom. Dankjewel voor het opnieuw ontwekken van
