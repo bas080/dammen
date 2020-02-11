@@ -195,6 +195,7 @@ captures([From, To], Board, BoardOut) :-
   replace(A, To, B1, BoardOut).
 
 captures([From, To, Next|Rest], Board, BoardOut) :-
+  writeln(Next),
   From = piece(_, _, A),
   To = piece(_, _, B),
   Next = piece(_, _,C),
