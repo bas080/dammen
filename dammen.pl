@@ -248,6 +248,7 @@ perform(capture(Moves), Board, BoardOut) :-
   captures(Moves, Board, BoardOut).
 
 perform(move(From, To), Board, BoardOut) :-
+  println("Called"),
   move(From, To, Board, BoardOut).
 
 perform([Turn|Rest], Board, BoardOut) :-
