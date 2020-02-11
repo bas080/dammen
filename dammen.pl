@@ -139,8 +139,7 @@ move(FromPiece, ToPiece, Board) :-
   ToPiece = piece(_, _, To),
   FromPiece = piece(_, _, From),
   \+ pieces_between(From, To, _, Board), % is only required when piece is a king
-  \+ member(piece(_, _, To), Board),
-  writeln("Great").
+  \+ member(piece(_, _, To), Board).
 
 move(FromPiece, ToPiece, BoardIn, BoardOut) :-
   move(FromPiece, ToPiece, BoardIn),
