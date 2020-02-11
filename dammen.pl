@@ -251,8 +251,9 @@ perform([Turn|Rest], Board, BoardOut) :-
   Turn = turn(_, _, Color),
   options(Board, Color, Options),
   option(Options, Turn, Option),
-  % writeln(Option),
+  writeln(Option),
   perform(Option, Board, BoardNext),
+  writeln("Performed"),
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To, Color), Option) :-
