@@ -248,11 +248,11 @@ perform(move(From, To), Board, BoardOut) :-
 perform([], A, A) :- !.
 
 perform([Turn|Rest], Board, BoardOut) :-
-  writeln(Turn),
   Turn = turn(_, _, Color),
   options(Board, Color, Options),
   option(Options, Turn, Option),
   perform(Option, Board, BoardNext),
+  writeln(Turn),
   cli:pp_board(BoardNext),
   %writeln("Did not fail"),
   perform(Rest, BoardNext, BoardOut).
