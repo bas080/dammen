@@ -195,8 +195,11 @@ captures([From, To], Board, BoardOut) :-
   replace(A, To, B1, BoardOut).
 
 captures([From, To, Next|Rest], Board, BoardOut) :-
-  shares_line_with(From, To, D),
-  shares_line_with(Next, To, \+ D),
+  From = piece(_, _, A),
+  To = piece(_, _, B),
+  Next = piece(_, _,C),
+  shares_line_with(A, B, D),
+  shares_line_with(C, B, \+ D),
   capture(From, To, _, Board, BoardNext),
   captures([To, Next|Rest], BoardNext, BoardOut).
 
