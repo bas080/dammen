@@ -252,7 +252,6 @@ perform(move(From, To), Board, BoardOut) :-
 
 perform([Turn|Rest], Board, BoardOut) :-
   cli:pp_board(Board),
-  write("here"),
   Turn = turn(_, _, Color),
   options(Board, Color, Options),
   option(Options, Turn, Option),
