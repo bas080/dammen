@@ -175,7 +175,7 @@ capture(piece(king, Color, From),
 
 capture(FromPiece, ToPiece, Captured, Board) :-
   member(FromPiece, Board),
-  membee(Captured, Board),
+  member(Captured, Board),
   capture(FromPiece, ToPiece, Captured),
   ToPiece = piece(_, _, To),
   FromPiece = piece(_, _, From),
