@@ -175,8 +175,8 @@ capture(piece(king, Color, From),
 
 capture(FromPiece, ToPiece, Captured, Board) :-
   member(FromPiece, Board),
-  capture(FromPiece, ToPiece, Captured),
   member(Captured, Board),
+  capture(FromPiece, ToPiece, Captured),
   ToPiece = piece(_, _, To),
   FromPiece = piece(_, _, From),
   \+ member(piece(_, _, To), Board),
@@ -186,6 +186,7 @@ capture(FromPiece, ToPiece, Captured, Board) :-
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
   exclude(=(Captured), Board, B1),
+  writeln(To),
   replace(From, To, B1, BoardOut).
 
 % Last move in a capture
