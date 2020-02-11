@@ -250,8 +250,6 @@ perform(capture(Moves), Board, BoardOut) :-
 perform(move(From, To), Board, BoardOut) :-
   move(From, To, Board, BoardOut).
 
-%perform([], A, A) :- !.
-
 perform([Turn|Rest], Board, BoardOut) :-
   writeln("Where fail?"),
   cli:pp_board(Board),
