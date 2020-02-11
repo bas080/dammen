@@ -133,13 +133,14 @@ move(piece(king, Color, From), piece(king, Color, To)) :-
   shares_line_with(From, To).
 
 % consider refacroring the move into a king and man move
+move(piece(king, Color, From), piece(king, Color, To)) :-
+  \+ pieces_between(From, To, _, Board), % is only required when piece is a king
+
 move(FromPiece, ToPiece, Board) :-
   member(FromPiece, Board),
-  move(FromPiece, ToPiece),
-  ToPiece = piece(_, _, To),
   FromPiece = piece(_, _, From),
-  \+ pieces_between(From, To, _, Board), % is only required when piece is a king
-  \+ member(piece(_, _, To), Board).
+  \+ member(piece(_, _, To), Board),
+  move(FromPiece, ToPiece),
 
 move(FromPiece, ToPiece, BoardIn, BoardOut) :-
   move(FromPiece, ToPiece, BoardIn),
