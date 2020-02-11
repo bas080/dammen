@@ -194,7 +194,7 @@ captures([From, To], Board, BoardOut) :-
   capture(From, A, _, Board),
   writeln(To),
   becomes(A, To),
-  capture(From, To, Board, BoardOut).
+  capture(From, To, _, Board, BoardOut).
 
 captures([From,To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
