@@ -194,7 +194,7 @@ captures([From, To], Board, BoardOut) :-
   becomes(A, To),
   replace(A, To, B1, BoardOut).
 
-captures([From,To|Rest], Board, BoardOut) :-
+captures([From, To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
   captures([To|Rest], BoardNext, BoardOut).
 
