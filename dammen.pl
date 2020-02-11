@@ -88,7 +88,7 @@ shares_line_with(A, B, D) :-
 
 shares_line_with(A, B, D) :-
   neighbors(A, C, D),
-  shares_line_with(C, B, D), !.
+  shares_line_with(C, B, D).
 
 % Moving and capturing movement.
 
