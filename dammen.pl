@@ -127,9 +127,7 @@ move(piece(man, Color, From), ToPiece) :-
   moves_towards_the(Color, ColorDirection),
   direction(ColorDirection, Direction),
   neighbors(To, From, Direction),
-  becomes(piece(man, Color, To), ToPiece),
-  writeln(ToPiece)
-  .
+  becomes(piece(man, Color, To), ToPiece).
 
 move(piece(king, Color, From), piece(king, Color, To)) :-
   shares_line_with(From, To).
