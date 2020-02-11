@@ -250,7 +250,7 @@ perform(capture(Moves), Board, BoardOut) :-
 perform(move(From, To), Board, BoardOut) :-
   writeln("Called"),
   move(From, To, Board, BoardOut),
-  writeln("Love")
+  writeln(BoardOut)
   .
 
 perform([Turn|Rest], Board, BoardOut) :-
