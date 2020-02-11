@@ -254,6 +254,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   options(Board, Color, Options),
   option(Options, Turn, Option),
   perform(Option, Board, BoardNext),
+  writeln("Did not fail"),
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To, Color), Option) :-
