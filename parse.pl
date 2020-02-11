@@ -31,6 +31,7 @@ parse_movetext_turn(turn(From, To), Text) :-
   (Middle = "-"; Middle = "x"),
   dammen:field(From),
   dammen:field(To),
+  From \= To,
   wrap(Middle, Text, From, To).
 
 % Forced moves might have an *
