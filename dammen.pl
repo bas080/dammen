@@ -186,15 +186,14 @@ capture(FromPiece, ToPiece, Captured, Board) :-
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
   exclude(=(Captured), Board, B1),
+  writeln(To),
   replace(From, To, B1, BoardOut).
 
 % Last move in a capture
 captures([From, To], Board, BoardOut) :-
   capture(From, A, _, Board),
   becomes(A, To),
-  writeln("Captures"),
-  writeln(To),
-  capture(From, To, _, Board, BoardOut).
+  replace(A, To, Board, BoardOut).
 
 captures([From,To|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
