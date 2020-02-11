@@ -238,19 +238,11 @@ perform(A, BoardOut) :-
   board(Board),
   perform(A, Board, BoardOut).
 
-% perform(Move, Board, _) :-
-%   \+ is_list(Move),
-%   %writeln(Board),
-%   %writeln(Move),
-%   false.
-
 perform(capture(Moves), Board, BoardOut) :-
   captures(Moves, Board, BoardOut).
 
 perform(move(From, To), Board, BoardOut) :-
-  writeln("Called"),
-  move(From, To, Board, BoardOut),
-  writeln(BoardOut)
+  move(From, To, Board, BoardOut).
   .
 
 perform([Turn|Rest], Board, BoardOut) :-
@@ -260,6 +252,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   option(Options, Turn, Option),
   writeln(Option),
   perform(Option, Board, BoardNext),
+  writeln(Option),
   perform(Rest, BoardNext, BoardOut).
 
 option(Options, turn(From, To, Color), Option) :-
