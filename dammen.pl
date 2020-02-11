@@ -199,7 +199,7 @@ captures([From, To, Next|Rest], Board, BoardOut) :-
   To = piece(_, _, B),
   Next = piece(_, _,C),
   shares_line_with(A, B, D),
-  shares_line_with(C, B, \+ D),
+  \+ shares_line_with(C, B, D),
   capture(From, To, _, Board, BoardNext),
   captures([To, Next|Rest], BoardNext, BoardOut).
 
