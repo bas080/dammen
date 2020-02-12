@@ -185,7 +185,7 @@ capture(FromPiece, ToPiece, Captured, Board) :-
 
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
-  writeln(To),
+  writeln(Captured),
   exclude(=(Captured), Board, B1),
   replace(From, To, B1, BoardOut).
 
