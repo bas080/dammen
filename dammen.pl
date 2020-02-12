@@ -69,7 +69,7 @@ board(Board) :-
   findall(Piece, board_piece(Piece), Board).
 
 random_board(Board) :-
-  lenght(Board, 50),
+  length(Board, 50),
   member(piece(_, _, _), Board).
 
 % Turns
