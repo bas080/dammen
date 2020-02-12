@@ -202,9 +202,7 @@ captures([From, To, Next|Rest], Board, BoardOut) :-
   shares_line_with(A, B, D),
   shares_line_with(C, B, DD),
   D \= DD,
-  captures([To, Next|Rest], BoardNext, BoardOut),
-  writeln("Failed")
-  .
+  captures([To, Next|Rest], BoardNext, BoardOut).
 
 captures(Captures, Board) :-
   captures(Captures, Board, _).
@@ -271,11 +269,11 @@ option(Options, turn(From, To, Color), Option) :-
   !.
 
 option(Options, turn(From, To, _), Option) :-
-  once((
   member(Option, Options),
   Option = capture([piece(_, _, From)|Rest]),
   last(Rest, piece(_, _, To)),
-  writeln("Love it"))).
+  writeln("Love it"),
+  !.
 
 % HELPERS
 
