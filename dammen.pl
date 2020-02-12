@@ -202,6 +202,7 @@ captures([From, To, Next|Rest], Board, BoardOut) :-
   shares_line_with(A, B, D),
   shares_line_with(C, B, DD),
   D \= DD,
+  writeln("Wow"),
   captures([To, Next|Rest], BoardNext, BoardOut).
 
 captures(Captures, Board) :-
@@ -259,7 +260,6 @@ perform([Turn|Rest], Board, BoardOut) :-
   options(Board, Color, Options),
   option(Options, Turn, Option),
   % writeln(Option),
-  writeln("Do it now"),
   perform(Option, Board, BoardNext),
   writeln(BoardNext),
   cli:pp_board(BoardNext),
