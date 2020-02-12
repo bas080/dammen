@@ -258,7 +258,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   Turn = turn(_, _, Color),
   options(Board, Color, Options),
   option(Options, Turn, Option),
-  % writeln(Option),
+  writeln(Option),
   perform(Option, Board, BoardNext),
   cli:pp_board(BoardNext),
   perform(Rest, BoardNext, BoardOut).
