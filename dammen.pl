@@ -139,8 +139,8 @@ move(FromPiece, ToPiece, BoardIn, BoardOut) :-
   replace(FromPiece, ToPiece, BoardIn, BoardOut).
 
 pieces_between(From, To, Piece, Board) :-
-  once(shares_line_with(From, Middle, D)),
-  once(shares_line_with(Middle, To, D)),
+  shares_line_with(From, Middle, D),
+  shares_line_with(Middle, To, D),
   %between_fields(From, To, Middle),
   member(Piece, Board),
   Piece = piece(_, _, Middle).
