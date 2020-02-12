@@ -277,7 +277,7 @@ option(Options, turn(From, To, _), Option) :-
 
 % HELPERS
 
-replace(A, A, B, B).
+replace(A, A, B, B) :- !.
 replace(_, _, [], []).
 replace(O, R, [O|T], [R|T2]) :- replace(O, R, T, T2).
 replace(O, R, [H|T], [H|T2]) :- H \= O, replace(O, R, T, T2).
