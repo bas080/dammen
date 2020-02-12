@@ -1,7 +1,7 @@
 field(X) :-
   catch(
     (X > 0, X =< 50),
-    (_, _),
+    error(_, _),
     (between(1, 50, X))).
 
 row_direction_offset(Offset, A) :-
