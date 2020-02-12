@@ -70,7 +70,8 @@ board(Board) :-
 
 random_board(Board) :-
   length(Board, 50),
-  member(piece(_, _, _), Board).
+  Piece = piece(_, _, _),
+  member(Piece, Board).
 
 % Turns
 
