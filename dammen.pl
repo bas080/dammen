@@ -185,7 +185,6 @@ capture(FromPiece, ToPiece, Captured, Board) :-
 
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
-  writeln(Captured),
   exclude(=(Captured), Board, B1),
   replace(From, To, B1, BoardOut).
 
@@ -255,11 +254,9 @@ perform(move(From, To), Board, BoardOut) :-
 perform([], A, A) :- !.
 
 perform([Turn|Rest], Board, BoardOut) :-
-  % writeln(Turn),
   Turn = turn(_, _, Color),
   options(Board, Color, Options),
   option(Options, Turn, Option),
-  writeln(Option),
   perform(Option, Board, BoardNext),
   cli:pp_board(BoardNext),
   perform(Rest, BoardNext, BoardOut).
@@ -273,7 +270,6 @@ option(Options, turn(From, To, _), Option) :-
   member(Option, Options),
   Option = capture([piece(_, _, From)|Rest]),
   last(Rest, piece(_, _, To)),
-  writeln("Love it"),
   !.
 
 % HELPERS
