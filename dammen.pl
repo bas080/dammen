@@ -1,8 +1,12 @@
+%TODO: optimize by moving to more piece oriented approach. This reduces the
+%amount of possibilities to the pieces on the board firstly. member(Piece,
+%Board).
+
 field(X) :-
   between(1, 50, X).
 
 row_direction_offset(Offset, A) :-
-  mod(A - 1, 10) < 5
+  mod(A - 1, 10) <
   -> Offset = 1
   ;  Offset = 0,
   !.
