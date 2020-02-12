@@ -1,3 +1,7 @@
+%TODO: optimize by moving to more piece oriented approach. This reduces the
+%amount of possibilities to the pieces on the board firstly. member(Piece,
+%Board).
+
 field(X) :-
   between(1, 50, X).
 
@@ -137,7 +141,7 @@ move(FromPiece, ToPiece, BoardIn, BoardOut) :-
 pieces_between(From, To, Piece, Board) :-
   shares_line_with(From, Middle, D),
   shares_line_with(Middle, To, D),
-  between_fields(From, To, Middle),
+  %between_fields(From, To, Middle),
   member(Piece, Board),
   Piece = piece(_, _, Middle).
 
