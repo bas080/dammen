@@ -1,4 +1,6 @@
 field(X) :-
+  X > 0,
+  X < 50,
   between(1, 50, X).
 
 row_direction_offset(Offset, A) :-
