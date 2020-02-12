@@ -1,7 +1,8 @@
 field(X) :-
-  (X > 0, X =< 50)
-  -> X
-  ; between(1, 50, X).
+  catch(
+    (X > 0, X =< 50),
+    (_, _),
+    between(1, 50, X)).
 
 row_direction_offset(Offset, A) :-
   mod(A - 1, 10) < 5
