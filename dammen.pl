@@ -34,7 +34,6 @@ neighbors(A, B) :-
   neighbors(A, B, _).
 
 neighbors(A, B, D) :-
-  field(B),
   movement(D, I),
   row_direction_offset(Offset, B),
   A is (B + Offset + I),
