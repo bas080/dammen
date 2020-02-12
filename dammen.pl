@@ -6,7 +6,7 @@ field(X) :-
   between(1, 50, X).
 
 row_direction_offset(Offset, A) :-
-  mod(A - 1, 10) <
+  mod(A - 1, 10)
   -> Offset = 1
   ;  Offset = 0,
   !.
