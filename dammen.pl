@@ -186,8 +186,7 @@ capture(FromPiece, ToPiece, Captured, Board) :-
 capture(From, To, Captured, Board, BoardOut) :-
   capture(From, To, Captured, Board),
   exclude(=(Captured), Board, B1),
-  replace(From, To, B1, BoardOut),
-  pp_board(BoardOut).
+  replace(From, To, B1, BoardOut).
 
 % Last move in a capture
 captures([From, To], Board, BoardOut) :-
