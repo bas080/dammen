@@ -246,7 +246,9 @@ perform(A, BoardOut) :-
   perform(A, Board, BoardOut).
 
 perform(capture(Moves), Board, BoardOut) :-
-  captures(Moves, Board, BoardOut).
+  captures(Moves, Board, BoardOut),
+  writeln("Hoe dan")
+  .
 
 perform(move(From, To), Board, BoardOut) :-
   move(From, To, Board, BoardOut).
