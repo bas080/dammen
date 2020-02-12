@@ -73,7 +73,7 @@ random_board(Board) :-
   length(S, 40),
   Piece = piece(_, _, _),
   member(Piece, S),
-  permutations(S, Board).
+  permutation(S, Board).
 
 % Turns
 
