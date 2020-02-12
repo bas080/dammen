@@ -275,7 +275,7 @@ option(Options, turn(From, To, _), Option) :-
   member(Option, Options),
   Option = capture([piece(_, _, From)|Rest]),
   last(Rest, piece(_, _, To)),
-  writeln("Love it")))
+  writeln("Love it"))).
 
 % HELPERS
 
