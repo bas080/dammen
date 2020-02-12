@@ -69,9 +69,11 @@ board(Board) :-
   findall(Piece, board_piece(Piece), Board).
 
 random_board(Board) :-
-  length(Board, 50),
+  between(2, 40, N),
+  length(S, 40),
   Piece = piece(_, _, _),
-  member(Piece, Board).
+  member(Piece, S),
+  permutations(S, Board).
 
 % Turns
 
