@@ -196,14 +196,12 @@ captures([From, To], Board, BoardOut) :-
 
 captures([From, To, Next|Rest], Board, BoardOut) :-
   capture(From, To, _, Board, BoardNext),
-
   From = piece(_, _, A),
   To = piece(_, _, B),
   Next = piece(_, _,C),
   shares_line_with(A, B, D),
   shares_line_with(C, B, DD),
   D \= DD,
-
   captures([To, Next|Rest], BoardNext, BoardOut).
 
 captures(Captures, Board) :-
@@ -262,6 +260,7 @@ perform([Turn|Rest], Board, BoardOut) :-
   option(Options, Turn, Option),
   % writeln(Option),
   perform(Option, Board, BoardNext),
+  writeln(BoardNext),
   cli:pp_board(BoardNext),
   perform(Rest, BoardNext, BoardOut).
 
