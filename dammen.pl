@@ -259,9 +259,8 @@ perform([Turn|Rest], Board, BoardOut) :-
   options(Board, Color, Options),
   option(Options, Turn, Option),
   % writeln(Option),
+  writeln("Do it now"),
   perform(Option, Board, BoardNext),
-  writeln(Options),
-  writeln(""),
   writeln(BoardNext),
   cli:pp_board(BoardNext),
   perform(Rest, BoardNext, BoardOut).
