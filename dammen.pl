@@ -68,13 +68,6 @@ board_piece(piece(man, black, X)) :-
 board(Board) :-
   findall(Piece, board_piece(Piece), Board).
 
-random_board(Board) :-
-  between(2, 40, N),
-  length(S, 40),
-  Piece = piece(_, _, _),
-  member(Piece, S),
-  permutation(S, Board).
-
 % Turns
 
 shares_line_with(A, B) :-
