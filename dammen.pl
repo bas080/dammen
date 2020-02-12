@@ -53,7 +53,7 @@ piece(Piece, Color, Field) :-
   piece(Piece),
   field(Field).
 
-% Board
+% Board: creating the initial board
 
 board_piece(piece(man, white, X)) :-
   field(X),
