@@ -202,7 +202,9 @@ captures([From, To, Next|Rest], Board, BoardOut) :-
   shares_line_with(A, B, D),
   shares_line_with(C, B, DD),
   D \= DD,
-  captures([To, Next|Rest], BoardNext, BoardOut).
+  captures([To, Next|Rest], BoardNext, BoardOut),
+  writeln("Failed")
+  .
 
 captures(Captures, Board) :-
   captures(Captures, Board, _).
@@ -246,9 +248,7 @@ perform(A, BoardOut) :-
   perform(A, Board, BoardOut).
 
 perform(capture(Moves), Board, BoardOut) :-
-  captures(Moves, Board, BoardOut),
-  writeln("Hoe dan")
-  .
+  captures(Moves, Board, BoardOut).
 
 perform(move(From, To), Board, BoardOut) :-
   move(From, To, Board, BoardOut).
