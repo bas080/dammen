@@ -1,4 +1,4 @@
-module(dammen, [options/3, options/1, option/3, perform/2]).
+module(dammen, [options/3, options/1, option/3, perform/2, field/1]).
 
 field(X) :-
   between(1, 50, X).
