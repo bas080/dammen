@@ -90,16 +90,6 @@ color(black, white).
 color(white).
 color(black).
 
-between_fields(From, To, Captured) :-
-  From >= To,
-  between_fields(To, From, Captured).
-
-between_fields(From, To, Captured) :-
-  From =\= To,
-  From < Captured,
-  To > Captured,
-  !.
-
 moves_towards_the(black, south).
 moves_towards_the(white, north).
 
@@ -141,7 +131,6 @@ move(FromPiece, ToPiece, BoardIn, BoardOut) :-
 pieces_between(From, To, Piece, Board) :-
   shares_line_with(From, Middle, D),
   shares_line_with(Middle, To, D),
-  %between_fields(From, To, Middle),
   member(Piece, Board),
   Piece = piece(_, _, Middle).
 
