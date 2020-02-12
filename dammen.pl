@@ -202,7 +202,6 @@ captures([From, To, Next|Rest], Board, BoardOut) :-
   shares_line_with(A, B, D),
   shares_line_with(C, B, DD),
   D \= DD,
-  writeln("Wow"),
   captures([To, Next|Rest], BoardNext, BoardOut).
 
 captures(Captures, Board) :-
