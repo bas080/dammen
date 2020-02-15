@@ -21,5 +21,6 @@ An implementation for validating the legality of a Draughts move.
 Ik wijd deze software toe aan Rom. Dankjewel voor het opnieuw ontwekken van
 mijn liefde voor het bordspel.
 
-[1]: https://en.wikipedia.org/wiki/Portable_Draughts_Notation
-[2]: https://www.swi-prolog.org/FAQ/PrologScript.html
+[1]:https://en.wikipedia.org/wiki/Portable_Draughts_Notation
+[2]:https://www.swi-prolog.org/FAQ/PrologScript.html
+[3]:https://www.swi-prolog.org/pldoc/man?section=optparse
