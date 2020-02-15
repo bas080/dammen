@@ -16,6 +16,8 @@ An implementation for validating the legality of a Draughts move.
 
 4. Archive games by putting to an FTP server.
 
+5. Add [optparse][3] to the cli module.
+
 ## Credits
 
 Ik wijd deze software toe aan Rom. Dankjewel voor het opnieuw ontwekken van
