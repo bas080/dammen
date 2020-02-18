@@ -10,7 +10,9 @@ const daxy = http.createServer((req, res) => {
 
   req.on('data', console.log)
 
-  console.log(req.setTimeout)
+  req.setTimeout(2000, () => {
+    console.log('timed out')
+  })
 
   // Fire and forget
   hash[req.url] &&
