@@ -43,7 +43,7 @@ function createSocket(req, cb) {
   });
 
   // create new listener
-  server.listen('/tmp/daxy');
+  server.listen('/tmp/' + req.url);
 
   var stream = net.connect('/tmp/daxy');
   req.pipe(stream)
