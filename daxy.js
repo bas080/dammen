@@ -50,6 +50,7 @@ function createSocket(req, cb) {
   server.listen(path);
 
   var stream = net.connect(path);
+
   req.pipe(stream)
 
   const dammen = spawn('./dammen', [path])
