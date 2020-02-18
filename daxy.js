@@ -5,6 +5,11 @@ const engine = new swipl.Engine();
 engine.call('consult(src/dammen).')
 engine.call('consult(src/parse).')
 
+while (true) {
+  engine.call('field(X), X > 51')
+  .then(console.log)
+}
+
 const http = require('http');
 
 const hash = {}
