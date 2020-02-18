@@ -10,7 +10,7 @@ const daxy = http.createServer((req, res) => {
 
   req.on('data', console.log)
 
-  setTimeout(300, () => {
+  setTimeout(1000, () => {
     res.statusCode = 408
     res.end()
   })
