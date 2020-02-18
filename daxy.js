@@ -49,12 +49,13 @@ function createSocket(req, cb) {
   // create new listener
   server.listen(path);
 
-  spawn('./dammen', [path])
-    .stdout(process.stdout)
 
   var stream = net.connect(path);
   req.pipe(stream)
-  subproc
+
+  spawn('./dammen', [path])
+    .stdout(process.stdout)
+
   // stream.write('hello');
   // stream.end();
 }
