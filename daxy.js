@@ -47,5 +47,5 @@ function createSocket(url, cb) {
 
   var stream = net.connect('/tmp/daxy');
   stream.write('hello');
-  stream.end();
+  // stream.end();
 }
