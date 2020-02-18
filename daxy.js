@@ -6,14 +6,18 @@ const hash = {}
 // Cleanup games that have not been answered and are older then like a long
 // time.
 const daxy = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/pdn' });
-
-  setTimeout(() => {
+  const timeout = setTimeout(() => {
     delete hash[req.url]
     res.statusCode = 408
     res.end()
     console.log('timedout')
   }, 1000)
+
+  res.on('close', () => {
+    clearTimeout(timeout)
+  })
+
+  res.writeHead(200, { 'Content-Type': 'text/pdn' });
 
   // Fire and forget
   hash[req.url] &&
