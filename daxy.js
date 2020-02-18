@@ -1,6 +1,7 @@
 
 const swipl = require('swipl-stdio');
 const engine = new swipl.Engine();
+engine.call('consult(src/dammen');
 const http = require('http');
 
 const hash = {}
