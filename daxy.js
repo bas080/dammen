@@ -6,6 +6,7 @@ engine.call('consult(src/dammen).')
 engine.call('consult(src/parse).')
 
 while (true) {
+  console.log('called')
 engine.call('field(X).')
   .then(console.log)
 }
