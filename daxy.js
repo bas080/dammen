@@ -45,7 +45,6 @@ function createSocket(req, cb) {
       server.close();
     });
 
-
     var stream = net.connect(path);
     req.pipe(stream)
 
@@ -63,7 +62,4 @@ function createSocket(req, cb) {
 
   // create new listener
   server.listen(path);
-
-  // stream.write('hello');
-  // stream.end();
 }
