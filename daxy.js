@@ -19,6 +19,7 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.setTimeout(1000, a => {
+  console.log(a.url)
   a.write(408)
   a.end()
 })
