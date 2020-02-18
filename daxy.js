@@ -27,7 +27,8 @@ const daxy = http.createServer((req, res) => {
 
 daxy.listen(8080, '127.0.0.1')
 
-function createSocket(url) {
+// add cb that has errors and such
+function createSocket(url, cb) {
   var net = require('net');
 
   var server = net.createServer(function(stream) {
@@ -39,7 +40,7 @@ function createSocket(url) {
     });
   });
 
-  // create lis
+  // create new listener
   server.listen('/tmp/daxy');
 
   var stream = net.connect('/tmp/daxy');
