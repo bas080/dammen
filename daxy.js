@@ -9,6 +9,7 @@ const daxy = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/pdn' });
 
   setTimeout(() => {
+    delete hash[req.url]
     res.statusCode = 408
     res.end()
     console.log('timedout')
