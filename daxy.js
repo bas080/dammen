@@ -12,6 +12,8 @@ const daxy = http.createServer((req, res) => {
     res.end()
   }, process.env.DAMMEN_TURN_TIMEOUT || 300000) // TODO: Make configurable
 
+  createSocket(req)
+
   res.on('close', () => {
     clearTimeout(timeout)
   })
@@ -26,8 +28,6 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.listen(8080, '127.0.0.1')
-
-createSocket()
 
 // add cb that has errors and such
 function createSocket(req, cb) {
