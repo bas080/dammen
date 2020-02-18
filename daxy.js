@@ -26,3 +26,23 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.listen(8080, '127.0.0.1')
+
+function createSocket(url) {
+  var net = require('net');
+
+  var server = net.createServer(function(stream) {
+    stream.on('data', function(c) {
+      console.log('data:', c.toString());
+    });
+    stream.on('end', function() {
+      server.close();
+    });
+  });
+
+  // create lis
+  server.listen('/tmp/daxy');
+
+  var stream = net.connect('/tmp/daxy');
+  stream.write('hello');
+  stream.end();
+}
