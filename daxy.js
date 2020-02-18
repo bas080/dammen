@@ -42,6 +42,17 @@ function createSocket(req, cb) {
     stream.on('end', function() {
       server.close();
     });
+
+
+    const dammen = spawn('./dammen', [path])
+
+    dammen.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+
+    dammen.stdout.pipe(process.stdout)
+    dammen.stderr.pipe(process.stderr)
+
   });
 
   const path = `/tmp${req.url}`
@@ -53,14 +64,6 @@ function createSocket(req, cb) {
 
   req.pipe(stream)
 
-  const dammen = spawn('./dammen', [path])
-
-  dammen.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
-
-  dammen.stdout.pipe(process.stdout)
-  dammen.stderr.pipe(process.stderr)
 
   // stream.write('hello');
   // stream.end();
