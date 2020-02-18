@@ -17,8 +17,6 @@ const daxy = http.createServer((req, res) => {
   hash[req.url] = {req, res}
 });
 
-console.log(daxy instanceof http.Server)
-
 daxy.setTimeout(1000, console.error)
 
 daxy.listen(8080, '127.0.0.1')
