@@ -1,4 +1,5 @@
 
+const toString = require('stream-to-string')
 const swipl = require('swipl-stdio');
 const engine = new swipl.Engine();
 
@@ -18,7 +19,7 @@ const daxy = http.createServer((req, res) => {
     res.end()
   }, process.env.DAMMEN_TURN_TIMEOUT || 300000) // TODO: Make configurable
 
-  createSocket(req)
+  toString(req, console.log)
 
   res.on('close', () => {
     clearTimeout(timeout)
