@@ -42,10 +42,12 @@ function createSocket(req, cb) {
     });
   });
 
-  // create new listener
-  server.listen('/tmp/' + req.url);
+  const path = `/tmp/${req.url}`
 
-  var stream = net.connect('/tmp/daxy');
+  // create new listener
+  server.listen(path);
+
+  var stream = net.connect(path);
   req.pipe(stream)
   // stream.write('hello');
   // stream.end();
