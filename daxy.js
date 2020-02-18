@@ -19,7 +19,7 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.on("timeout", () => {
-    console.log(server.timeout);
+    console.log(daxy.timeout);
     console.log("Timeout event");
 });
 
