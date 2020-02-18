@@ -56,8 +56,6 @@ function createSocket(req, cb) {
 
     dammen.stdout.pipe(process.stdout)
     dammen.stderr.pipe(process.stderr)
-
-
   });
 
   // create new listener
