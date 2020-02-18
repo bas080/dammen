@@ -3,8 +3,6 @@ const http = require('http');
 
 const hash = {}
 
-// Cleanup games that have not been answered and are older then like a long
-// time.
 const daxy = http.createServer((req, res) => {
   const timeout = setTimeout(() => {
     delete hash[req.url]
