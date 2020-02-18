@@ -5,7 +5,7 @@ const engine = new swipl.Engine();
 engine.call('consult(src/dammen).')
 engine.call('consult(src/parse).')
 
-while true {
+while (true) {
 engine.call('field(X).')
   .then(console.log)
 }
