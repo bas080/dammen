@@ -32,6 +32,8 @@ daxy.listen(8080, '127.0.0.1')
 // add cb that has errors and such
 function createSocket(req, cb) {
   var net = require('net');
+  const {spawn} = require('child_process')
+
 
   var server = net.createServer(function(stream) {
     stream.on('data', function(c) {
@@ -47,8 +49,12 @@ function createSocket(req, cb) {
   // create new listener
   server.listen(path);
 
+  spawn('./dammen', [path])
+    .stdout(process.stdout)
+
   var stream = net.connect(path);
   req.pipe(stream)
+  subproc
   // stream.write('hello');
   // stream.end();
 }
