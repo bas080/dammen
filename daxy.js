@@ -1,4 +1,6 @@
 
+const swipl = require('swipl-stdio');
+const engine = new swipl.Engine();
 const http = require('http');
 
 const hash = {}
@@ -34,15 +36,14 @@ function createSocket(req, cb) {
   var net = require('net');
   const {spawn} = require('child_process')
 
-
   var server = net.createServer(function(stream) {
     stream.on('data', function(c) {
       console.log('data:', c.toString());
     });
+
     stream.on('end', function() {
       server.close();
     });
-
 
     const dammen = spawn('./dammen', [path])
 
