@@ -10,7 +10,7 @@ const daxy = http.createServer((req, res) => {
     delete hash[req.url]
     res.statusCode = 408
     res.end()
-  }, process.env.DAMMEN_TURN_TIMEOUT || 1000) // TODO: Make configurable
+  }, process.env.DAMMEN_TURN_TIMEOUT || 300000) // TODO: Make configurable
 
   res.on('close', () => {
     clearTimeout(timeout)
