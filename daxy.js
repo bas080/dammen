@@ -13,6 +13,7 @@ const daxy = http.createServer((req, res) => {
   setTimeout(1000, () => {
     res.statusCode = 408
     res.end()
+    console.log(timedout)
   })
 
   // Fire and forget
