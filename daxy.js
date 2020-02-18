@@ -6,6 +6,7 @@ engine.call('consult(src/dammen).')
 engine.call('consult(src/parse).')
 
 engine.call('field(X).')
+  .then(console.log)
 
 const http = require('http');
 
