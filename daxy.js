@@ -42,7 +42,7 @@ function createSocket(req, cb) {
     });
   });
 
-  const path = `/tmp/${req.url}`
+  const path = `/tmp${req.url}`
 
   // create new listener
   server.listen(path);
