@@ -34,6 +34,8 @@ function createSocket(req, cb) {
   var net = require('net');
   const {spawn} = require('child_process')
 
+  const path = `/tmp${req.url}`
+
 
   var server = net.createServer(function(stream) {
     stream.on('data', function(c) {
@@ -42,25 +44,25 @@ function createSocket(req, cb) {
     stream.on('end', function() {
       server.close();
     });
-  });
 
-  const path = `/tmp${req.url}`
+
+    var stream = net.connect(path);
+    req.pipe(stream)
+
+    const dammen = spawn('./dammen', [path])
+
+    dammen.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+
+    dammen.stdout.pipe(process.stdout)
+    dammen.stderr.pipe(process.stderr)
+
+
+  });
 
   // create new listener
   server.listen(path);
-
-
-  var stream = net.connect(path);
-  req.pipe(stream)
-
-  const dammen = spawn('./dammen', [path])
-
-  dammen.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
-
-  dammen.stdout.pipe(process.stdout)
-  dammen.stderr.pipe(process.stderr)
 
   // stream.write('hello');
   // stream.end();
