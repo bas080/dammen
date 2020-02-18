@@ -55,6 +55,10 @@ function createSocket(req, cb) {
 
   const dammen = spawn('./dammen', [path])
 
+  dammen.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
+
   dammen.stdout.pipe(process.stdout)
 
   // stream.write('hello');
