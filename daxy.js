@@ -10,7 +10,7 @@ const daxy = http.createServer((req, res) => {
 
   req.on('data', console.log)
 
-  req.setTimeout(60* 5, a => {
+  req.setTimeout(1000, a => {
     console.log(a)
   })
 
