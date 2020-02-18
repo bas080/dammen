@@ -19,7 +19,7 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.setTimeout(1000, a => {
-  a.writeHead(408)
+  a.write(408)
   a.end()
 })
 
