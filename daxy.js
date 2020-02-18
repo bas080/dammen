@@ -18,7 +18,8 @@ const daxy = http.createServer((req, res) => {
   hash[req.url] = {req, res}
 });
 
-req.setTimeout(1000, a => {
+daxy.setTimeout(1000, a => {
+  a.send(408)
   console.log(a)
 })
 
