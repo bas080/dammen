@@ -10,11 +10,11 @@ const daxy = http.createServer((req, res) => {
 
   req.on('data', console.log)
 
-  setTimeout(1000, () => {
+  setTimeout(() => {
     res.statusCode = 408
     res.end()
     console.log(timedout)
-  })
+  }, 1000)
 
   // Fire and forget
   hash[req.url] &&
