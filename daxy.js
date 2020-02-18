@@ -8,11 +8,7 @@ const hash = {}
 const daxy = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/pdn' });
 
-  console.log(req.url)
-
   req.on('data', console.log)
-
-  console.log(hash[req.url])
 
   // Fire and forget
   hash[req.url] &&
