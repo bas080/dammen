@@ -19,8 +19,8 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.setTimeout(1000, a => {
-  a.send(408)
-  console.log(a)
+  a.writeHead(408)
+  a.end()
 })
 
 daxy.listen(8080, '127.0.0.1')
