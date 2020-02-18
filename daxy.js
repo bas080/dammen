@@ -60,6 +60,7 @@ function createSocket(req, cb) {
   });
 
   dammen.stdout.pipe(process.stdout)
+  dammen.stderr.pipe(process.stderr)
 
   // stream.write('hello');
   // stream.end();
