@@ -3,6 +3,7 @@ const swipl = require('swipl-stdio');
 const engine = new swipl.Engine();
 
 engine.call('consult(src/dammen).')
+engine.call('consult(src/parse).')
 
 const http = require('http');
 
