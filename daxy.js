@@ -19,7 +19,8 @@ const daxy = http.createServer((req, res) => {
     res.end()
   }, process.env.DAMMEN_TURN_TIMEOUT || 300000) // TODO: Make configurable
 
-  toString(req, console.log)
+  toString(req)
+    .then(console.log)
 
   res.on('close', () => {
     clearTimeout(timeout)
