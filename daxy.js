@@ -5,6 +5,8 @@ const engine = new swipl.Engine();
 engine.call('consult(src/dammen).')
 engine.call('consult(src/parse).')
 
+engine.call('field(X).')
+
 const http = require('http');
 
 const hash = {}
