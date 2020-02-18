@@ -17,8 +17,9 @@ const daxy = http.createServer((req, res) => {
   hash[req.url] = {req, res}
 });
 
-daxy.setTimeout(1000, () => {
-  console.log('i am called')
-})
+daxy.timeout = 1000
+// daxy.setTimeout(1000, () => {
+//   console.log('i am called')
+// })
 
 daxy.listen(8080, '127.0.0.1')
