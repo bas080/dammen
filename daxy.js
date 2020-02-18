@@ -8,8 +8,6 @@ const hash = {}
 const daxy = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/pdn' });
 
-  req.on('data', console.log)
-
   setTimeout(() => {
     res.statusCode = 408
     res.end()
