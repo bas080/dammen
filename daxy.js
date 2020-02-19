@@ -1,4 +1,3 @@
-
 const toString = require('stream-to-string')
 const swipl = require('swipl-stdio');
 const engine = new swipl.Engine();
@@ -36,42 +35,3 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.listen(8080, '127.0.0.1')
-
-// add cb that has errors and such
-function createSocket(req, cb) {
-  var net = require('net');
-  const {spawn} = require('child_process')
-
-  var server = net.createServer(function(stream) {
-    stream.on('data', function(c) {
-      console.log('data:', c.toString());
-    });
-
-    stream.on('end', function() {
-      server.close();
-    });
-
-    const dammen = spawn('./dammen', [path])
-
-    dammen.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
-    });
-
-    dammen.stdout.pipe(process.stdout)
-    dammen.stderr.pipe(process.stderr)
-
-  });
-
-  const path = `/tmp${req.url}`
-
-  // create new listener
-  server.listen(path);
-
-  var stream = net.connect(path);
-
-  req.pipe(stream)
-
-
-  // stream.write('hello');
-  // stream.end();
-}
