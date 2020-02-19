@@ -19,6 +19,13 @@ const daxy = http.createServer((req, res) => {
   }, process.env.DAMMEN_TURN_TIMEOUT || 300000) // TODO: Make configurable
 
   toString(req)
+    .then(pdn =>
+      engine.call(
+      serialize(
+        compound('parse_pdn_string', [
+          pdn
+        ])
+      )))
     .then(console.log)
 
   res.on('close', () => {
