@@ -64,11 +64,12 @@ function ForgetfulMap() {
     return map[prop]
   }
 
-  set(prop, value) {
+  set(prop, value, millisecondsOveride) {
     map[prop] = value
 
     setTimeout(() => {
-    }, milliseconds
+      delete map[prop]
+    }, milliseconds || milliseconds)
   }
 
 }
