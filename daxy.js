@@ -1,5 +1,6 @@
 const toString = require('stream-to-string')
 const swipl = require('swipl-stdio');
+const {serialize, variable, compound} = swipl.term
 const engine = new swipl.Engine();
 
 engine.call('consult(src/dammen).')
