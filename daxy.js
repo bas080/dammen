@@ -59,19 +59,24 @@ function debounceMap() {
   constructor(init, milliseconds = 1000) {
     map = init || {}
     after = milliseconds || after
-  }
+  },
 
   get(prop) {
-    return map[prop]
-  }
+    return map[prop].value
+  },
 
   set(prop, value, millisecondsOveride) {
-    map[prop] = value
+    map[prop] && clearTimeout(map[prop].timeout)
 
-    // TODO:  cover case where the value is reset
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       delete map[prop]
     }, milliseconds || milliseconds)
+
+    map[prop] = {
+      value
+      timeout
+    }
+
   }
 
 }
