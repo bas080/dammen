@@ -1,6 +1,6 @@
 const toString = require('stream-to-string')
 const swipl = require('swipl-stdio');
-const {serialize, variable, compound} = swipl.term
+const {serialize, variable, compound, list} = swipl.term
 const engine = new swipl.Engine();
 
 engine.call('consult(src/dammen).')
@@ -22,12 +22,12 @@ const daxy = http.createServer((req, res) => {
   toString(req)
     .then(pdn =>
       engine.call(
-      serialize(
-        compound('parse_pdn_string', [
-          variable("Objects"),
-          pdn
-        ])
-      )))
+        serialize(
+          compound('parse_pdn_string', [
+            list(variable("Objects")),
+            pdn
+          ])
+        )))
     .then(console.log.bind(console, req.url))
   .catch(console.error)
 
