@@ -50,32 +50,3 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.listen(8080, '127.0.0.1')
-
-// deletes property after n seconds
-function ForgetfulMap() {
-  let map;
-  let after;
-
-  this.constructor = (init, milliseconds = 1000) => {
-    map = init || {}
-    after = milliseconds || after
-  }
-
-  this.get= (prop) => {
-    return map[prop] && map[prop].value
-  }
-
-  this.set = (prop, value, millisecondsOveride) => {
-    map[prop] && clearTimeout(map[prop].timeout)
-
-    const timeout = setTimeout(() => {
-      delete map[prop]
-    }, milliseconds || milliseconds)
-
-    map[prop] = {
-      value
-      timeout
-    }
-
-  }
-}
