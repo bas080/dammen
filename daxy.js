@@ -20,6 +20,7 @@ const daxy = http.createServer((req, res) => {
     res.end()
   }, process.env.DAMMEN_TURN_TIMEOUT || 300000)
 
+  // Check if the file is a valid pdn file with valid moves
   toString(req)
     .then(pdn =>
       engine.call(
