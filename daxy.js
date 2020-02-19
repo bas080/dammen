@@ -12,7 +12,7 @@ const hash = {}
 
 const daxy = http.createServer((req, res) => {
 
-  // Cleanup when not responded withing acceptable time
+  // Cleanup when not responded within acceptable time
   const timeout = setTimeout(() => {
     delete hash[req.url]
     res.statusCode = 408
