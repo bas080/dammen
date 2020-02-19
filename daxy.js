@@ -57,7 +57,7 @@ function ForgetfulMap() {
 
   constructor(Init, milliseconds) {
     map = Init || {}
-    after = milliseconds
+    after = milliseconds || after
   }
 
   get(prop) {
