@@ -5,6 +5,7 @@ const engine = new swipl.Engine();
 
 engine.call('consult(src/dammen).')
 engine.call('consult(src/pdn).')
+engine.call('consult(src/cli).')
 
 const http = require('http');
 
