@@ -50,3 +50,12 @@ const daxy = http.createServer((req, res) => {
 });
 
 daxy.listen(8080, '127.0.0.1')
+
+function ForgetfulMap() {
+  let map;
+
+  constructor(Init) {
+    map = Init || {}
+  }
+
+}
