@@ -55,8 +55,8 @@ function ForgetfulMap() {
   let map;
   let after;
 
-  constructor(Init, milliseconds = 1000) {
-    map = Init || {}
+  constructor(init, milliseconds = 1000) {
+    map = init || {}
     after = milliseconds || after
   }
 
