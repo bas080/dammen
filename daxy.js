@@ -51,7 +51,7 @@ const daxy = http.createServer((req, res) => {
 
 daxy.listen(8080, '127.0.0.1')
 
-function ForgetfulMap() {
+function debounceMap() {
   let map;
   let after;
 
