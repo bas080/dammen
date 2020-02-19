@@ -33,6 +33,7 @@ const daxy = http.createServer((req, res) => {
           ])
         )))
       .then(result => {
+        console.log(result)
         console.log(JSON.stringify(result))
       })
 
