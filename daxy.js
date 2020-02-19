@@ -28,7 +28,7 @@ const daxy = http.createServer((req, res) => {
           pdn
         ])
       )))
-    .then(console.log)
+    .then(console.log.bind(console, req.url))
 
   res.on('close', () => {
     clearTimeout(timeout)
