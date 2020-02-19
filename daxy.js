@@ -53,9 +53,9 @@ daxy.listen(8080, '127.0.0.1')
 
 function ForgetfulMap() {
   let map;
-  let after = 1000;
+  let after;
 
-  constructor(Init, milliseconds) {
+  constructor(Init, milliseconds = 1000) {
     map = Init || {}
     after = milliseconds || after
   }
