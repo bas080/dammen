@@ -14,7 +14,6 @@ const daxy = http.createServer((req, res) => {
 
   // Cleanup when not responded within acceptable time
   // Required for memory reasons
-  // Consider abstracting into auto cleanup hashmap tool
   const timeout = setTimeout(() => {
     delete hash[req.url]
     res.statusCode = 408
