@@ -24,7 +24,7 @@ const daxy = http.createServer((req, res) => {
       engine.call(
         serialize(
           compound('parse_pdn_string', [
-            list(variable("Objects")),
+            variable("Objects"),
             pdn
           ])
         )))
