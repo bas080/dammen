@@ -27,7 +27,8 @@ const daxy = http.createServer((req, res) => {
             variable("Objects"),
             pdn
           ])
-        )))
+        ))
+    })
     .then(JSON.stringify)
     .then(console.log.bind(console, req.url))
   .catch(console.error)
