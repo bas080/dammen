@@ -11,7 +11,6 @@ const http = require('http');
 const hash = {}
 
 const daxy = http.createServer((req, res) => {
-
   // Cleanup when not responded within acceptable time.
   // Required for memory reasons.
   const timeout = setTimeout(() => {
