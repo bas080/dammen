@@ -32,9 +32,9 @@ const daxy = http.createServer((req, res) => {
             pdn
           ])
         )))
-    .then(result => {
-      console.log(JSON.stringify(result))
-    })
+      .then(result => {
+        console.log(JSON.stringify(result))
+      })
 
   res.on('close', () => {
     clearTimeout(timeout)
