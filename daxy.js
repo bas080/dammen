@@ -67,6 +67,7 @@ function ForgetfulMap() {
   set(prop, value, millisecondsOveride) {
     map[prop] = value
 
+    // cover case where the value is reset
     setTimeout(() => {
       delete map[prop]
     }, milliseconds || milliseconds)
