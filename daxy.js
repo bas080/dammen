@@ -21,12 +21,12 @@ const daxy = http.createServer((req, res) => {
   }, process.env.DAMMEN_TURN_TIMEOUT || 300000)
 
   // Check if the file is a valid pdn file with valid moves
+  // TODO: just testing if the binding is working well and it is.
+  // should instead call function for checking pdn and all moves.
   toString(req)
     .then(pdn =>
       engine.call(
         serialize(
-          // just testing if the binding is working well and it is.
-          // should instead call function for checking pdn and all moves.
           compound('parse_pdn_string', [
             variable("Objects"),
             pdn
