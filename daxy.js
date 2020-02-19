@@ -43,7 +43,7 @@ const daxy = http.createServer((req, res) => {
   // Pipe the request body of the current player directly to the other player.
   hash[req.url] && (
     res.writeHead(200, { 'Content-Type': 'text/pdn' });
-    req.pipe(hash[req.url].res);)
+    req.pipe(hash[req.url].res))
 
   hash[req.url] = {req, res}
 });
