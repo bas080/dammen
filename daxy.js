@@ -23,6 +23,7 @@ const daxy = http.createServer((req, res) => {
     .then(pdn =>
       engine.call(
         serialize(
+          // just testing if the binding is working well and it is.
           compound('parse_pdn_string', [
             variable("Objects"),
             pdn
