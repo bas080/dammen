@@ -29,7 +29,7 @@ const daxy = http.createServer((req, res) => {
           ])
         ))
     })
-    .then(JSON.stringify)
+    .then(JSON.stringify.bind(JSON))
     .then(console.log.bind(console, req.url))
   .catch(console.error)
 
