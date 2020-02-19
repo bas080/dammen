@@ -56,16 +56,16 @@ function debounceMap() {
   let map;
   let after;
 
-  this.constructor(init, milliseconds = 1000) {
+  this.constructor = (init, milliseconds = 1000) => {
     map = init || {}
     after = milliseconds || after
   }
 
-  this.get(prop) {
+  this.get= (prop) => {
     return map[prop] && map[prop].value
-  },
+  }
 
-  this.set(prop, value, millisecondsOveride) {
+  this.set = (prop, value, millisecondsOveride) => {
     map[prop] && clearTimeout(map[prop].timeout)
 
     const timeout = setTimeout(() => {
@@ -78,5 +78,4 @@ function debounceMap() {
     }
 
   }
-
 }
