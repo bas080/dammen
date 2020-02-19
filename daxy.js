@@ -52,7 +52,7 @@ const daxy = http.createServer((req, res) => {
 daxy.listen(8080, '127.0.0.1')
 
 // deletes property after n seconds
-function DebounceMap() {
+function ForgetfulMap() {
   let map;
   let after;
 
