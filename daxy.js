@@ -24,6 +24,7 @@ const daxy = http.createServer((req, res) => {
       engine.call(
         serialize(
           // just testing if the binding is working well and it is.
+          // should instead call function for checking pdn and all moves.
           compound('parse_pdn_string', [
             variable("Objects"),
             pdn
