@@ -121,7 +121,9 @@ promotes_to(A, B) :-
     borders(Field, Border)
   ) -> B = piece(king, Color, Field) ; B = A.
 
-% Moving (board)
+% # Move
+%
+% Both movement of men and kings
 
 move(piece(man, Color, From), ToPiece) :-
   moves_towards_the(Color, ColorDirection),
@@ -142,7 +144,7 @@ move(FromPiece, ToPiece, Board) :-
 
 move(FromPiece, ToPiece, BoardIn, BoardOut) :-
   move(FromPiece, ToPiece, BoardIn),
-  replace(FromPiece, ToPiece, BoardIn, BoardOut).
+  subtract([ToPiece|BoardIn], [FromPiece], BoardOut).
 
 pieces_between(From, To, Piece, Board) :-
   shares_line_with(From, Middle, D),
@@ -150,7 +152,9 @@ pieces_between(From, To, Piece, Board) :-
   member(Piece, Board),
   Piece = piece(_, _, Middle).
 
-% Capturing (board)
+% # Capture (single piece)
+%
+% These are the building blocks for capturing multiple pieces.
 
 % TODO: abstract the neighbors and shares_line_with into an Op
 capture(piece(man, Color, From),
@@ -183,17 +187,26 @@ capture(FromPiece, ToPiece, Captured, Board, BoardOut) :-
   capture(FromPiece, ToPiece, Captured, Board),
   subtract([ToPiece|Board], [Captured, FromPiece], BoardOut).
 
+% # Captures (multiple pieces)
+%
+% These rules are used for both single and multiple piece capture.
+
 captures(From, To, [A|Rest], Board, BoardOut) :-
   capture(From, Next, A, Board, B1),
   captures(Next, To, Rest, B1, BoardOut).
 
 captures(From, To, [A], Board, BoardPromoted) :-
   capture(From, To, A, Board, BoardOut),
-  maplist(promotes_to, BoardOut, BoardPromoted).
+  maplist(promotes_to, BoardOut, BoardPromoted). % Does it make sense to itterate over all of this.
 
 % dun know what to name this stuff. Consider refactoring the options fn to
 % remove this temporary data
 options_capture([From,To|_], capture(From, To)).
+
+% # Options
+%
+% These functions are used to compute the valid moves/captures a player is
+% allowed to do.
 
 % TODO: Check if there is longest king move otherwise all.
 options(Board, Color, Options) :-
@@ -216,15 +229,6 @@ options(Board, Color, Options) :-
      move(From, To, Board),
     From = piece(_, Color, _)
   ), Options).
-
-length_equals(V, L) :-
-  length(L, LL),
-  LL =\= V.
-
-longest(Captures, Longest) :-
-  maplist(length, Captures, X),
-  max_list(X, Y),
-  exclude(length_equals(Y), Captures, Longest).
 
 perform(A, BoardOut) :-
   board(Board),
@@ -260,9 +264,13 @@ option(Options, turn(From, To, _), Option) :-
   Option = capture(piece(_, _, From), piece(_, _, To)),
   !.
 
-% HELPERS
+% # Helpers
 
-replace(A, A, B, B) :- !.
-replace(_, _, [], []).
-replace(O, R, [O|T], [R|T2]) :- replace(O, R, T, T2).
-replace(O, R, [H|T], [H|T2]) :- H \= O, replace(O, R, T, T2).
+length_equals(V, L) :-
+  length(L, LL),
+  LL =\= V.
+
+longest(Captures, Longest) :-
+  maplist(length, Captures, X),
+  max_list(X, Y),
+  exclude(length_equals(Y), Captures, Longest).
