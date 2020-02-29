@@ -7,6 +7,7 @@ plan 1
 compile | diagnostics
 
 find ./t/pdn/xx* | parallel \
+  -v \
   -L 1 \
   --halt now,fail=1 \
   ./dammen | grep pdn | diagnostics;
