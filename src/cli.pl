@@ -59,10 +59,3 @@ main(Argv) :-
   include(is_turn, Objects, Turns),
   color_turns(Turns, Colored),
   dammen:perform(Colored, _).
-
-  % dammen:perform(Colored, Out).
-  % pp_board(Out),
-  % writeln(Out).
-
-
-%validate_moves([Move|Moves
