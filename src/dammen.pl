@@ -1,6 +1,6 @@
-% TODO: optimize by moving to more piece oriented approach. This reduces the
-% amount of possibilities to the pieces on the board firstly. member(Piece,
-% Board).
+% # Fields
+%
+% Describes the fields and the relations between them.
 
 field(X) :-
   between(1, 50, X).
@@ -16,11 +16,6 @@ direction(north, nw).
 direction(south, se).
 direction(south, sw).
 
-direction(ne).
-direction(nw).
-direction(se).
-direction(sw).
-
 borders(A, top) :-
   A < 6.
 
@@ -32,9 +27,6 @@ movement(ne, -5).
 movement(se, 5).
 movement(nw, -6).
 
-neighbors(A, B) :-
-  neighbors(A, B, _).
-
 neighbors(A, B, D) :-
   field(A),
   field(B),
@@ -43,13 +35,21 @@ neighbors(A, B, D) :-
   A is (B + Offset + I),
   \+ row_direction_offset(Offset, A).
 
-% Pieces
+shares_line_with(A, B, D) :-
+  neighbors(A, B, D).
 
-man(white).
-man(black).
+shares_line_with(A, B, D) :-
+  neighbors(A, C, D),
+  shares_line_with(C, B, D).
 
-king(white).
-king(black).
+% # Pieces
+%
+% Describes the different colors and types of pieces.
+
+color(white, black).
+color(black, white).
+color(white).
+color(black).
 
 piece(man).
 piece(king).
@@ -58,7 +58,15 @@ piece(Piece, Color, Field) :-
   piece(Piece),
   field(Field).
 
-% Board: creating the initial board
+moves_towards(black, south).
+moves_towards(white, north).
+
+king_side(black, bottom).
+king_side(white, top).
+
+% # Board
+%
+% Utilities for generating boards
 
 board_piece(piece(man, white, X)) :-
   field(X),
@@ -90,31 +98,11 @@ test_board(X) :-
     piece(man, white, 27)
   ].
 
-% Turns
+% # Promote
+%
+% When a man reaches the other side of the board it becomes a king.
 
-shares_line_with(A, B) :-
-  shares_line_with(A, B, _).
-
-shares_line_with(A, B, D) :-
-  neighbors(A, B, D).
-
-shares_line_with(A, B, D) :-
-  neighbors(A, C, D),
-  shares_line_with(C, B, D).
-
-% Moving and capturing movement.
-
-color(white, black).
-color(black, white).
-color(white).
-color(black).
-
-moves_towards_the(black, south).
-moves_towards_the(white, north).
-
-king_side(black, bottom).
-king_side(white, top).
-promotes_to(A, B) :-
+promotes(A, B) :-
   (
     A = piece(man, Color, Field),
     king_side(Color, Border),
@@ -126,13 +114,13 @@ promotes_to(A, B) :-
 % Both movement of men and kings
 
 move(piece(man, Color, From), ToPiece) :-
-  moves_towards_the(Color, ColorDirection),
+  moves_towards(Color, ColorDirection),
   direction(ColorDirection, Direction),
   neighbors(To, From, Direction),
-  promotes_to(piece(man, Color, To), ToPiece).
+  promotes(piece(man, Color, To), ToPiece).
 
 move(piece(king, Color, From), piece(king, Color, To)) :-
-  shares_line_with(From, To).
+  shares_line_with(From, To, _).
 
 move(FromPiece, ToPiece, Board) :-
   member(FromPiece, Board),
@@ -155,21 +143,20 @@ pieces_between(From, To, Piece, Board) :-
 % # Capture (single piece)
 %
 % These are the building blocks for capturing multiple pieces.
+%
+% The capturing uses a little trick where the captured piece color is inverted,
+% preventing it from being eaten again.
 
-% TODO: abstract the neighbors and shares_line_with into an Op
-capture(piece(man, Color, From),
-        piece(man, Color, To),
-        piece(_, Opposite, CaptureField)) :-
-  neighbors(CaptureField, From, D),
-  neighbors(To, CaptureField, D),
-  color(Color, Opposite).
+capture_operation(man, neighbors).
+capture_operation(king, shares_line_with).
 
-capture(piece(king, Color, From),
-        piece(king, Color, To),
-        piece(_, Opposite, CaptureField)) :-
-  shares_line_with(From, CaptureField, D),
-  shares_line_with(CaptureField, To, D),
-  color(Color, Opposite).
+capture(piece(A, C, From),
+        piece(A, C, To),
+        piece(_, Opposite, Middle)) :-
+  capture_operation(A, Operation),
+  call(Operation, From, Middle, Direction),
+  call(Operation, Middle, To, Direction),
+  color(C, Opposite).
 
 capture(FromPiece, ToPiece, Captured, Board) :-
   member(FromPiece, Board),
@@ -181,11 +168,13 @@ capture(FromPiece, ToPiece, Captured, Board) :-
   once(findnsols(2, P, pieces_between(From, To, P, Board), Pieces)),
   length(Pieces, 1).
 
-% Keep the captured piece on the board. This is required in order to comply
-% with certain capture cases.
-capture(FromPiece, ToPiece, Captured, Board, BoardOut) :-
+capture(FromPiece, ToPiece, Inverted, Board, BoardOut) :-
   capture(FromPiece, ToPiece, Captured, Board),
-  subtract([ToPiece|Board], [Captured, FromPiece], BoardOut).
+  invert(Captured, Inverted),
+  subtract([ToPiece,Inverted|Board], [Captured, FromPiece], BoardOut).
+
+invert(piece(T, C, F), piece(T, Co, F)) :-
+  color(C, Co).
 
 % # Captures (multiple pieces)
 %
@@ -193,22 +182,19 @@ capture(FromPiece, ToPiece, Captured, Board, BoardOut) :-
 
 captures(From, To, [A|Rest], Board, BoardOut) :-
   capture(From, Next, A, Board, B1),
-  captures(Next, To, Rest, B1, BoardOut).
+  captures(Next, To, Rest, B1, B2),
+  subtract(B2, [A], BoardOut).
 
-captures(From, To, [A], Board, BoardPromoted) :-
-  capture(From, To, A, Board, BoardOut),
-  maplist(promotes_to, BoardOut, BoardPromoted). % Does it make sense to itterate over all of this.
-
-% dun know what to name this stuff. Consider refactoring the options fn to
-% remove this temporary data
-options_capture([From,To|_], capture(From, To)).
+captures(From, To, [A], Board, BoardOut) :-
+  capture(From, To, A, Board, B),
+  subtract(B, [A], B1),
+  maplist(promotes, B1, BoardOut).
 
 % # Options
 %
 % These functions are used to compute the valid moves/captures a player is
 % allowed to do.
 
-% TODO: Check if there is longest king move otherwise all.
 options(Board, Color, Options) :-
   findall(
     Result,
@@ -220,15 +206,46 @@ options(Board, Color, Options) :-
     Captures
   ),
   \+ length(Captures, 0),
-  longest(Captures, Longest),
-  maplist(options_capture, Longest, Options),
+  options_priority(Captures, Prioritized),
+  maplist(options_capture, Prioritized, Options),
   !.
+
+% TODO: refactor so it looks nicer
+options_capture([From,To|_], capture(From, To)).
+
+is_king_capture(Captures) :-
+  A = piece(king, _, _),
+  Captures = [A];
+  Captures = [A|_].
+
+options_priority(Options, Prioritized) :-
+  longest(Options, Longest),
+  include(is_king_capture, Longest, Kings)
+    -> Prioritized = Kings
+    ;  Prioritized = Options.
 
 options(Board, Color, Options) :-
   findall(move(From, To), (
      move(From, To, Board),
     From = piece(_, Color, _)
   ), Options).
+
+% # Option
+%
+% Convert a turn to an option.
+% TODO: Consider merging this function with the options function
+
+option(Options, turn(From, To, Color), Option) :-
+  member(Option, Options),
+  (
+    Option = move(piece(_, Color, From), piece(_, Color, To));
+    Option = capture(piece(_, Color, From), piece(_, Color, To))
+  ),
+  !.
+
+% # Perform
+%
+% Functions that take the current board, a move and return the new board.
 
 perform(A, BoardOut) :-
   board(Board),
@@ -249,20 +266,6 @@ perform([Turn|Rest], Board, BoardOut) :-
   perform(Option, Board, BoardNext),
   cli:pp_board(BoardNext),
   perform(Rest, BoardNext, BoardOut).
-
-option(_, T, _) :-
-  writeln(T),
-  fail.
-
-option(Options, turn(From, To, Color), Option) :-
-  member(Option, Options),
-  Option = move(piece(_, Color, From), piece(_, Color, To)),
-  !.
-
-option(Options, turn(From, To, _), Option) :-
-  member(Option, Options),
-  Option = capture(piece(_, _, From), piece(_, _, To)),
-  !.
 
 % # Helpers
 
