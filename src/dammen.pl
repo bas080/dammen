@@ -194,7 +194,6 @@ captures(From, To, [A], Board, BoardOut) :-
 %
 % These functions are used to compute the valid moves/captures a player is
 % allowed to do.
-
 options(Board, Color, Options) :-
   findall(
     Result,
@@ -210,25 +209,27 @@ options(Board, Color, Options) :-
   maplist(options_capture, Prioritized, Options),
   !.
 
-% TODO: refactor so it looks nicer
-options_capture([From,To|_], capture(From, To)).
-
-is_king_capture(Captures) :-
-  A = piece(king, _, _),
-  Captures = [A];
-  Captures = [A|_].
-
-options_priority(Options, Prioritized) :-
-  longest(Options, Longest),
-  include(is_king_capture, Longest, Kings)
-    -> Prioritized = Kings
-    ;  Prioritized = Options.
-
 options(Board, Color, Options) :-
   findall(move(From, To), (
      move(From, To, Board),
     From = piece(_, Color, _)
   ), Options).
+
+% TODO: refactor so it looks nicer
+options_capture([From,To|_], capture(From, To)).
+
+is_king_capture(Captures) :-
+  A = piece(king, _, _),
+  (Captures = [A]; Captures = [A|_]).
+
+options_priority(Options, Prioritized) :-
+  longest(Options, Prioritized).
+%   (
+%     include(is_king_capture, Longest, Kings),
+%     \+ length(Kings, 0)
+%   )
+%     -> Prioritized = Kings
+%     ;  Prioritized = Options.
 
 % # Option
 %
