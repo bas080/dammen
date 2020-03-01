@@ -31,13 +31,14 @@ match(String, Matcher, Matched) :-
 %
 % Simply takes a previous parsed input and converts it back.
 %
+% TODO: write a test that validates this.
 % pdn_objects(Input, Matches),
 % pdn_stringify(Matches, Stringified),
 % Input = Stringified.
 
 pdn_stringify([], '') :- !.
 
-pdn_stringify([pdn_object(Type, [])|Types], Stringified) :-
+pdn_stringify([pdn_object(_, [])|Types], Stringified) :-
   pdn_stringify(Types, Stringified).
 
 pdn_stringify([pdn_object(Type, [Str|StrRest])|Types], Stringified) :-
