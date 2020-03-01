@@ -1,6 +1,5 @@
 #!/usr/bin/env mache
 #!/usr/bin/env bash
 
-cat \
-  /home/women/projects/rsrvr/t/tap \
- .local.bashrc
+curl -s https://raw.githubusercontent.com/bas080/bash-tap/master/bash-tap
+cat .local.bashrc
