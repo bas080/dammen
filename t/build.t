@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source <(mache ./t/test-dependencies.sh)
+source <(./t/test-dependencies.sh)
 
 plan 1
 
