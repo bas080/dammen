@@ -24,7 +24,7 @@ parse_movetext_result(result(Text), Text) :-
   result(Text).
 
 parse_movetext_number(number(Number), Text) :-
-  number_string(Number, Text).
+  wrap(Number, Text, "", ".").
 
 parse_movetext_turn(turn(From, To), Text) :-
   (Middle = "-"; Middle = "x"),
@@ -65,7 +65,6 @@ parse_pdn_flexible(Objects, Codes) :-
 
 pdn_object_string(Object, String) :-
   once(
-    parse_tag_pair(Object, String);
     parse_movetext_number(Object, String);
     parse_movetext_result(Object, String);
     parse_movetext_turn(Object, String);
@@ -96,7 +95,7 @@ token(Token, Text) :-
 
 token_separator("\n").
 token_separator(" ").
-token_separator(".").
+% token_separator(".").
 
 trim(Trimmed, Text) :-
   normalize_space(atom(X), Text),
