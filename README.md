@@ -18,7 +18,18 @@ An implementation for validating the legality of a Draughts move.
 
 5. Add [optparse][3] to the cli module.
 
+## Tests
+
+> I want to give a shout out to the people that host [this PDN file][4].
+> I use these to test the parser and rule checker.
+
+The test require [mache][5] to be installed.
+
+Run the tests with perl's prove or by executing one of these files: ./t/\*.t
+
 ## Credits
+
+Veel dank aan FMJD voor het delen van de PDN bestanden.
 
 Ik wijd deze software toe aan Rom. Dankjewel voor het opnieuw ontwekken van
 mijn liefde voor het bordspel.
@@ -26,3 +37,5 @@ mijn liefde voor het bordspel.
 [1]:https://en.wikipedia.org/wiki/Portable_Draughts_Notation
 [2]:https://www.swi-prolog.org/FAQ/PrologScript.html
 [3]:https://www.swi-prolog.org/pldoc/man?section=optparse
+[4]:https://archive.fmjd.org/wk2007/PartijenAnalyses/All%20Games%20in%20PDN.pdn
+[5]:https://github.com/bas080/mache
