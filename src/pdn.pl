@@ -1,9 +1,9 @@
-% # PDN parser and strinfifier.
-%
-% TODO: add headers to all files with author and website and stating that the
-% software is copyrighted.
-%
-% Make it support char codes instead
+% % % % % % %
+% author:  Bas Huis
+% github:  https://github.com/bas080
+% created: Mon Mar  2 19:59:52 CET 2020
+% license: GNU General Public License 3.0
+% % % %
 
 % ## PDN object
 %
@@ -17,7 +17,7 @@ pdn_object(comment, [char("{"), text, char("}")]).
 pdn_object(numbered, [a_field, char(".")]).
 pdn_object(result(white), [char("1"), char("-"), char("0"), space]).
 pdn_object(result(black), [char("0"), char("-"), char("1"), space]).
-pdn_object(result(draw), [string_equals("1/2"), char("-"), string_equals("1/2"), space]).
+pdn_object(result(draw), [chars("1/2"), char("-"), chars("1/2"), space]).
 pdn_object(unparsed, [ignored]).
 
 % ## PDN objects
@@ -74,7 +74,7 @@ quoted(String) :-
 ignored(A) :-
   string_length(A, 1).
 
-string_equals(A, B) :-
+chars(A, B) :-
   A = B.
 
 text(A) :-
