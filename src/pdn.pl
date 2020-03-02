@@ -1,9 +1,30 @@
-% % % % % % %
+% # PDN parse and stringify
+%
+% Standalone module for parsing and creating PDN complient text.
+
 % author:  Bas Huis
-% github:  https://github.com/bas080
+% github:  https://github.com/bas080/dammen
 % created: Mon Mar  2 19:59:52 CET 2020
 % license: GNU General Public License 3.0
-% % % %
+
+% ## Tests
+:- begin_tests(parse_and_stringify).
+
+parse_test(File) :-
+  writeln(File),
+  read_file_to_string(File, String, []),
+  pdn_objects(String, Objects),
+  pdn_stringify(Objects, Stringified),
+  assertion(String = Stringified).
+
+test(parse_and_stringify, [nondet]) :-
+  working_directory(_, 't/pdn/'),
+  directory_files('.', PDNs),
+  include(exists_file, PDNs, Exists),
+  maplist(parse_test, Exists).
+
+:- end_tests(parse_and_stringify).
+
 
 % ## PDN object
 %
@@ -46,11 +67,6 @@ match(String, Matcher, Matched, Left) :-
 % ## PDN stringify
 %
 % Simply takes a previous parsed input and converts it back.
-%
-% TODO: write a test that validates this.
-% pdn_objects(Input, Matches),
-% pdn_stringify(Matches, Stringified),
-% Input = Stringified.
 
 pdn_stringify([], '') :- !.
 
@@ -86,7 +102,7 @@ token(A) :-
 
 a_field(A) :-
   number_string(B, A),
-  field(B).
+  between(1, 50, B).
 
 end_of_line(A) :-
   string_length(A, 1),

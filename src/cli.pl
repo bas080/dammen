@@ -1,13 +1,9 @@
 #!/usr/bin/env swipl
 
-% % % % % % %
 % author:  Bas Huis
-% github:  https://github.com/bas080
+% github:  https://github.com/bas080/dammen
 % created: Mon Mar  2 19:59:23 CET 2020
 % license: GNU General Public License 3.0
-% % % %
-
-% TODO: Can use a good rewrite.
 
 piece_char(man, black, "⛀").
 piece_char(man, white, "⛂").

@@ -4,7 +4,5 @@ source <(./t/test-dependencies.sh)
 
 plan 1
 
-! grep -rinE '(wip|todo|tbd|tdo|fixme)' ./src/ ./t/ | diagnostics
+! grep -wrinE '(wip|todo|tbd|tdo|fixme)' ./src/ ./t/ | grep -vF -e 'RULE_IGNORE:WIP' | diagnostics # RULE_IGNORE:WIP
 test_success 'No work in progress declarations.'
-
-

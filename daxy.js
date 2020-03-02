@@ -1,9 +1,7 @@
-// // // // // // //
 // author:  Bas Huis
-// github:  https://github.com/bas080
+// github:  https://github.com/bas080/dammen
 // created: Mon Mar  2 20:02:00 CET 2020
 // license: GNU General Public License 3.0
-// // // //
 
 const toString = require('stream-to-string')
 const swipl = require('swipl-stdio');

@@ -16,7 +16,7 @@ An implementation for validating the legality of a Draughts move.
 
 4. Archive games by putting to an FTP server.
 
-5. Add [optparse][3] to the cli module.
+5. Add [optparse][3] to the CLI module.
 
 ## Tests
 
@@ -25,7 +25,7 @@ An implementation for validating the legality of a Draughts move.
 
 The test require [mache][5] to be installed.
 
-Run the tests with perl's prove or by executing one of these files: ./t/\*.t
+Run the tests with Perl's prove or by executing one of these files: ./t/\*.t
 
 ## Credits
 

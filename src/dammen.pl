@@ -1,9 +1,7 @@
-% % % % % % %
 % author:  Bas Huis
-% github:  https://github.com/bas080
+% github:  https://github.com/bas080/dammen
 % created: Mon Mar  2 19:57:04 CET 2020
 % license: GNU General Public License 3.0
-% % % %
 
 % # Fields
 %
@@ -35,12 +33,13 @@ movement(se, 5).
 movement(nw, -6).
 
 neighbors(A, B, D) :-
-  field(A),
   field(B),
   movement(D, I),
   row_direction_offset(Offset, B),
   A is (B + Offset + I),
+  field(A),
   \+ row_direction_offset(Offset, A).
+  % Handy trick for checking if field A is out of bounds.
 
 shares_line_with(A, B, D) :-
   neighbors(A, B, D).
@@ -201,6 +200,9 @@ captures(From, To, [A], Board, BoardOut) :-
 %
 % These functions are used to compute the valid moves/captures a player is
 % allowed to do.
+
+options_capture([From,To|_], capture(From, To)).
+
 options(Board, Color, Options) :-
   findall(
     Result,
@@ -222,26 +224,10 @@ options(Board, Color, Options) :-
     From = piece(_, Color, _)
   ), Options).
 
-% TODO: refactor so it looks nicer
-options_capture([From,To|_], capture(From, To)).
-
-is_king_capture(Captures) :-
-  A = piece(king, _, _),
-  (Captures = [A]; Captures = [A|_]).
-
 options_priority(Options, Prioritized) :-
   longest(Options, Prioritized).
-%   (
-%     include(is_king_capture, Longest, Kings),
-%     \+ length(Kings, 0)
-%   )
-%     -> Prioritized = Kings
-%     ;  Prioritized = Options.
 
 % # Option
-%
-% Convert a turn to an option.
-% TODO: Consider merging this function with the options function
 
 option(Options, turn(From, To, Color), Option) :-
   member(Option, Options),
@@ -253,7 +239,8 @@ option(Options, turn(From, To, Color), Option) :-
 
 % # Perform
 %
-% Functions that take the current board, a move and return the new board.
+% Functions that take the current board, a list of turns, and returns the new
+% board.
 
 perform(A, BoardOut) :-
   board(Board),

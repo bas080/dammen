@@ -1,0 +1,23 @@
+{
+  "name": "dammen",
+  "version": "1.0.0",
+  "description": "An implementation for validating the legality of a Draughts move.",
+  "main": "daxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bas080/dammen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bas080/dammen/issues"
+  },
+  "homepage": "https://github.com/bas080/dammen#readme",
+  "dependencies": {
+    "stream-to-string": "^1.2.0",
+    "swipl-stdio": "^1.0.3"
+  }
+}
