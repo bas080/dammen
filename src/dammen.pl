@@ -1,3 +1,10 @@
+% % % % % % %
+% author:  Bas Huis
+% github:  https://github.com/bas080
+% created: Mon Mar  2 19:57:04 CET 2020
+% license: GNU General Public License 3.0
+% % % %
+
 % # Fields
 %
 % Describes the fields and the relations between them.
