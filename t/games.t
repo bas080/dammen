@@ -6,11 +6,12 @@ plan 1
 
 compile | diagnostics
 
-todo 'Dammen process fails when PDN is invalid'
+./dammen ./t/invalid.pdn 2>&1 | diagnostics
+test_failure 'Dammen process fails when PDN is invalid.'
 
-find ./t/pdn/xx* | parallel \
+printf '%s\n' ./t/pdn/xx* | parallel \
   -v \
   -L 1 \
   --halt now,fail=1 \
   ./dammen | grep pdn | diagnostics;
-test_success "Valid pdn can be validated"
+test_success 'Valid pdn can be validated.'
