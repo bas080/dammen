@@ -1,5 +1,7 @@
 #!/usr/bin/env swipl
 
+% TODO: Can use a good rewrite.
+
 piece_char(man, black, "⛀").
 piece_char(man, white, "⛂").
 piece_char(king, black, "⛁").
@@ -39,7 +41,11 @@ pp_board(Board) :-
   writeln(Str).
 
 is_turn(Turn) :-
-  Turn = turn(_, _).
+  Turn = pdn_object(turn, _).
+
+to_turn(pdn_object(turn, [From, _, To|_]), turn(FromS, ToS)) :-
+  number_string(FromS, From),
+  number_string(ToS, To).
 
 color_turns([], []).
 
@@ -53,9 +59,17 @@ color_turns(
 
 main(Argv) :-
   nth0(1, Argv, File),
-  writeln(File),
-  read_file_to_codes(File, Codes, []),
-  parse:parse_pdn(Objects, Codes),
-  include(is_turn, Objects, Turns),
+  read_file_to_string(File, String, []),
+  pdn_objects(String, Objects),
+  include(is_turn, Objects, A),
+  maplist(to_turn, A, Turns),
   color_turns(Turns, Colored),
   dammen:perform(Colored, _).
+
+wrap(Str, Surrounded, Start, After) :-
+  catch((
+    string_concat(Str, After, B),
+    string_concat(Start, B, Surrounded)),
+    error(_, _), (
+    string_concat(Start, B, Surrounded),
+    string_concat(Str, After, B))).

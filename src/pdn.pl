@@ -1,112 +1,100 @@
-% Parsing a PDN file.
-% - Make parsing quicker than ~half a second
-% - Implement stringify pdn feature
+% # PDN parser and strinfifier.
+%
+% TODO: add headers to all files with author and website and stating that the
+% software is copyrighted.
+%
+% Make it support char codes instead
 
-parse_move_type(move, "-").
-parse_move_type(capture, "x").
+% ## PDN object
+%
+% These define the name and the pattern which PDN objects follow.
 
-parse_movetext_comment(comment(Comment), Text) :-
-  wrap(Comment, Text, "{", "}").
+pdn_object(spaces, [space]).
+pdn_object(tag_pair, [char("["), text, space, quoted, char("]"), end_of_line]).
+pdn_object(turn, [a_field, turn_sep, a_field, space]).
+pdn_object(comment, [char(";"), text, end_of_line]).
+pdn_object(comment, [char("{"), text, char("}")]).
+pdn_object(numbered, [a_field, char(".")]).
+pdn_object(result(white), [char("1"), char("-"), char("0"), space]).
+pdn_object(result(black), [char("0"), char("-"), char("1"), space]).
+pdn_object(result(draw), [string_equals("1/2"), char("-"), string_equals("1/2"), space]).
+pdn_object(unparsed, [ignored]).
 
-% TODO: Not yet implemented. (No newline in normalized text)
-parse_movetext_comment(comment(Comment), Text) :-
-  wrap(Comment, Text, ";", "\n").
+% ## PDN objects
+%
+% Takes a string and turns it into a list of pdn objects.
 
-parse_tag_pair(tag_pair(TagPair), Text) :-
-  wrap(TagPair, Text, "[", "]").
+pdn_objects("", []) :- !.
 
-result("1-0").
-result("0-1").
-result("1/2-1/2").
-result("1-1").
+pdn_objects(String, [pdn_object(Type, Matched)|Types]) :-
+  once((
+    pdn_object(Type, Pattern),
+    matches(String, Pattern, Matched, Left)
+  )),
+  pdn_objects(Left, Types).
 
-parse_movetext_result(result(Text), Text) :-
-  result(Text).
+matches(Unmatched, [], [], Unmatched) :- !.
 
-parse_movetext_number(number(Number), Text) :-
-  wrap(Number, Text, "", ".").
+matches(String, [Matcher|Rest], [Matched|MatchedRest], Unmatched) :-
+  match(String, Matcher, Matched, Left),
+  matches(Left, Rest, MatchedRest, Unmatched).
 
-parse_movetext_turn(turn(From, To), Text) :-
-  (Middle = "-"; Middle = "x"),
-  dammen:field(From),
-  dammen:field(To),
-  wrap(Middle, Text, From, To), !.
+match(String, Matcher, Matched, Left) :-
+  string_concat(Matched, Left, String),
+  call(Matcher, Matched).
 
-% Forced moves might have an *
-parse_movetext_turn(Move, Text) :-
-  string_concat(WithoutAsterisk, "*", Text),
-  parse_movetext_turn(Move, WithoutAsterisk).
+% ## PDN stringify
+%
+% Simply takes a previous parsed input and converts it back.
+%
+% TODO: write a test that validates this.
+% pdn_objects(Input, Matches),
+% pdn_stringify(Matches, Stringified),
+% Input = Stringified.
 
-parse_pdn([], []) :- !.
+pdn_stringify([], '') :- !.
 
-parse_pdn(Objects, Codes) :-
-  parse_pdn_object(Object, Codes, Rest)
-  -> (parse_pdn(RestObjects, Rest), Objects = [Object|RestObjects])
-  ;  (
-    parse_pdn_flexible(Objects, Codes)
-  ). % Objects = [unparsed(Codes)].
+pdn_stringify([pdn_object(_, [])|Types], Stringified) :-
+  pdn_stringify(Types, Stringified).
 
-parse_pdn_string(Objects, String) :-
-  writeln(String),
-  string_codes(String, Codes),
-  parse_pdn(Objects, Codes).
+pdn_stringify([pdn_object(Type, [Str|StrRest])|Types], Stringified) :-
+  pdn_stringify([pdn_object(Type, StrRest)|Types], Rest),
+  string_concat(Str, Rest, Stringified).
 
-parse_pdn_flexible([], []) :- !.
+% ## Helpers
+%
+% Used for defining the pdn object patterns.
 
-parse_pdn_flexible(Objects, Codes) :-
-  parse_pdn_object(Object, Codes, Rest)
-  -> (
-    parse_pdn(RestObjects, Rest),
-    Objects = [Object|RestObjects]
-  ) ; (
-    Codes = [_|KeepReading],
-    parse_pdn_flexible(Objects, KeepReading)
-  ).
+char(A, B) :-
+  A = B.
 
-pdn_object_string(Object, String) :-
-  once(
-    parse_movetext_number(Object, String);
-    parse_movetext_result(Object, String);
-    parse_movetext_turn(Object, String);
-    parse_movetext_comment(Object, String)
-  ).
+quoted(String) :-
+  matches(String, [char("\""), text, char("\"")], _, _).
 
-pdn_string([], "") :- !.
+ignored(A) :-
+  string_length(A, 1).
 
-pdn_string([Object|Objects], String) :-
-  pdn_object_string(Object, ObjectString),
-  string_concat(ObjectString, "\n", WithNL),
-  pdn_string(Objects, RestString),
-  string_concat(WithNL, RestString, String).
+string_equals(A, B) :-
+  A = B.
 
-parse_pdn_object(Object, Codes, Rest) :-
-  append(Left, Rest, Codes),
-  string_codes(Text, Left),
-  token(String, Text),
-  pdn_object_string(Object, String),
-  !.
+text(A) :-
+  \+ end_of_line(A).
 
-% HELPERS
-token(Token, Text) :-
-  token_separator(Right),
-  (token_separator(Left); Left = ""),
-  wrap(Untrimmed, Text, Left, Right),
-  trim(Token, Untrimmed).
+token(A) :-
+  tokenize_atom(A, [B]),
+  A \= B.
 
-token_separator("\n").
-token_separator(" ").
-% token_separator(".").
+a_field(A) :-
+  number_string(B, A),
+  field(B).
 
-trim(Trimmed, Text) :-
-  normalize_space(atom(X), Text),
-  atom_string(X, Trimmed).
+end_of_line(A) :-
+  string_length(A, 1),
+  char_type(A, end_of_line).
 
-% handy helper (should check if this can be improved.
-% Maybe use format here
-wrap(Str, Surrounded, Start, After) :-
-  catch((
-    string_concat(Str, After, B),
-    string_concat(Start, B, Surrounded)),
-    error(_, _), (
-    string_concat(Start, B, Surrounded),
-    string_concat(Str, After, B))).
+space(A) :-
+  string_length(A, 1),
+  char_type(A, space).
+
+turn_sep("-").
+turn_sep("x").
