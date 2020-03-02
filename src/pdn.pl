@@ -15,9 +15,9 @@ pdn_object(turn, [a_field, turn_sep, a_field, space]).
 pdn_object(comment, [char(";"), text, end_of_line]).
 pdn_object(comment, [char("{"), text, char("}")]).
 pdn_object(numbered, [a_field, char(".")]).
-% pdn_object(result(white), [char("1"), char("-"), char("0"), space]).
-% pdn_object(result(black), [char("0"), char("-"), char("1"), space]).
-% pdn_object(result(draw), [string_equals("1/2"), char("-"), string_equals("1/2"), space]).
+pdn_object(result(white), [char("1"), char("-"), char("0"), space]).
+pdn_object(result(black), [char("0"), char("-"), char("1"), space]).
+pdn_object(result(draw), [string_equals("1/2"), char("-"), string_equals("1/2"), space]).
 pdn_object(unparsed, [ignored]).
 
 % ## PDN objects
@@ -86,7 +86,7 @@ token(A) :-
 
 a_field(A) :-
   number_string(B, A),
-  B > 0.
+  field(B).
 
 end_of_line(A) :-
   string_length(A, 1),
