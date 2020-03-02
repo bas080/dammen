@@ -2,6 +2,23 @@
 %
 % TODO: add headers to all files with author and website and stating that the
 % software is copyrighted.
+%
+% Make it support char codes instead
+
+% ## PDN object
+%
+% These define the name and the pattern which PDN objects follow.
+
+pdn_object(spaces, [space]).
+pdn_object(tag_pair, [char("["), text, space, quoted, char("]"), end_of_line]).
+pdn_object(turn, [a_field, turn_sep, a_field, space]).
+pdn_object(comment, [char(";"), text, end_of_line]).
+pdn_object(comment, [char("{"), text, char("}")]).
+pdn_object(numbered, [a_field, char(".")]).
+% pdn_object(result(white), [char("1"), char("-"), char("0"), space]).
+% pdn_object(result(black), [char("0"), char("-"), char("1"), space]).
+% pdn_object(result(draw), [string_equals("1/2"), char("-"), string_equals("1/2"), space]).
+pdn_object(unparsed, [ignored]).
 
 % ## PDN objects
 %
@@ -19,12 +36,11 @@ pdn_objects(String, [pdn_object(Type, Matched)|Types]) :-
 matches(Unmatched, [], [], Unmatched) :- !.
 
 matches(String, [Matcher|Rest], [Matched|MatchedRest], Unmatched) :-
-  match(String, Matcher, Matched),
-  string_concat(Matched, Left, String),
+  match(String, Matcher, Matched, Left),
   matches(Left, Rest, MatchedRest, Unmatched).
 
-match(String, Matcher, Matched) :-
-  sub_string(String, 0, N, _, Matched), N > 0, %TODO: have it cut string into complete tokens and not letter for letter
+match(String, Matcher, Matched, Left) :-
+  string_concat(Matched, Left, String),
   call(Matcher, Matched).
 
 % ## PDN stringify
@@ -45,28 +61,11 @@ pdn_stringify([pdn_object(Type, [Str|StrRest])|Types], Stringified) :-
   pdn_stringify([pdn_object(Type, StrRest)|Types], Rest),
   string_concat(Str, Rest, Stringified).
 
-% ## PDN object
-%
-% These define the name and the pattern which PDN objects follow.
-
-pdn_object(tag_pair, [char("["), text, space, quoted, char("]"), end_of_line]).
-pdn_object(comment, [char(";"), text, end_of_line]).
-pdn_object(comment, [char("{"), text, char("}")]).
-pdn_object(turn(move), [a_number, char("-"), a_number, space]).
-pdn_object(turn(capture), [a_number, char("x"), a_number, space]).
-pdn_object(turn(capture), [a_number, char("X"), a_number, space]).
-pdn_object(numbered, [a_number, char(".")]).
-pdn_object(result(white), [char("1"), char("-"), char("0"), space]).
-pdn_object(result(black), [char("0"), char("-"), char("1"), space]).
-pdn_object(result(draw), [string_equals("1/2"), char("-"), string_equals("1/2"), space]).
-pdn_object(ignored, [ignored]).
-
 % ## Helpers
 %
 % Used for defining the pdn object patterns.
 
 char(A, B) :-
-  string_length(A, 1),
   A = B.
 
 quoted(String) :-
@@ -85,8 +84,9 @@ token(A) :-
   tokenize_atom(A, [B]),
   A \= B.
 
-a_number(A) :-
-  number_string(_, A).
+a_field(A) :-
+  number_string(B, A),
+  B > 0.
 
 end_of_line(A) :-
   string_length(A, 1),
@@ -95,3 +95,6 @@ end_of_line(A) :-
 space(A) :-
   string_length(A, 1),
   char_type(A, space).
+
+turn_sep("-").
+turn_sep("x").
