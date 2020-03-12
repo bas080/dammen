@@ -1,5 +1,4 @@
 .local*
 node_modules/
-dammen
 *.bak
 .prove*
