@@ -18,6 +18,18 @@ An implementation for validating the legality of a Draughts move.
 
 5. Add [optparse][3] to the CLI module.
 
+## Contribute
+
+> Feel free to contribute in a manner you see fit.
+
+The source files are located in `./src/`
+
+- **cli.pl** enables rule checking from the command line.
+- **dammen.pl** implements the rule checker for the game of Draughts.
+- **pdn.pl** used for parsing and stringifying [PDN][1] files.
+- **daxy.js** is a minimal server for playing a game by sending back and forth
+  PDN files.
+
 ## Tests
 
 > I want to give a shout out to the people that host [this PDN file][4].

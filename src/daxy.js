@@ -8,7 +8,7 @@ const toString = require('stream-to-string')
 createDaxy({
   hash: {},
   swipl: require('swipl-stdio'),
-  logger: undefined, // TODO: Implement logging.
+  logger: undefined,
   http: require('http'),
 })
   .listen(8080, '127.0.0.1')
@@ -37,8 +37,6 @@ function createDaxy({hash, swipl, http, logger}) {
     }, process.env.DAMMEN_TURN_TIMEOUT || 300000)
 
     // Check if the file is a valid pdn file with valid moves
-    // TODO: just testing if the binding is working well and it is.
-    // should instead call function for checking pdn and all moves.
     toString(req)
       .then(pdn =>
         swipl.call(
@@ -52,9 +50,8 @@ function createDaxy({hash, swipl, http, logger}) {
           console.log(JSON.stringify(result, null, 2))
         })
 
-    // TODO: check if the req will be cleaned up.
     res.on('close', () => {
-      clearTimeout(timeout)
+      clearTimeout(timeout)// make sure it cleansup the hash
     })
 
     // Pipe the request body of the current player directly to the other player.
