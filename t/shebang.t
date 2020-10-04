@@ -5,12 +5,11 @@ source <(./t/test-dependencies.sh)
 plan 1
 
 {
-  compile
   tmp="$(mktemp)"
-  cp <({
-    printf '#!%s\n\n' "$BIN"
+  {
+    printf '#!%s\n\n' "$(compile)"
     cat ./t/pdn/xx00
-  }) $tmp
+  } > $tmp
   chmod +x $tmp
   $tmp
 } | diagnostics

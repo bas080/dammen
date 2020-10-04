@@ -4,7 +4,7 @@ source <(./t/test-dependencies.sh)
 
 plan 1
 
-compile | diagnostics
+BIN="$(compile)"
 
 printf '%s\n' ./t/pdn/xx* | shuf | head -n 10 | parallel \
   --jobs 20 \

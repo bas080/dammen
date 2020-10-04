@@ -11,7 +11,6 @@
 :- begin_tests(parse_and_stringify).
 
 parse_test(File) :-
-  writeln(File),
   read_file_to_string(File, String, []),
   pdn_objects(String, Objects),
   pdn_stringify(Objects, Stringified),

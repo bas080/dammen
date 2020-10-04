@@ -39,6 +39,10 @@ The test require [mache][5] to be installed.
 
 Run the tests with Perl's prove or by executing one of these files: ./t/\*.t
 
+## License
+
+GNU General Public License 3.0
+
 ## Credits
 
 Veel dank aan FMJD voor het delen van de PDN bestanden.

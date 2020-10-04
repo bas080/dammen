@@ -1,5 +1,3 @@
-#!/usr/bin/env swipl
-
 % author:  Bas Huis
 % github:  https://github.com/bas080/dammen
 % created: Mon Mar  2 19:59:23 CET 2020
@@ -36,12 +34,15 @@ pp_fields(Fields, Str) :-
   string_concat(Wrapped, RestPieces, Str).
 
 pp_board(Board) :-
+  pp_board(Board, String),
+  writeln(String).
+
+pp_board(Board, String) :-
   findall(P, (
     dammen:field(X),
     piece_chars(P, X, Board)
   ), Chars),
-  pp_fields(Chars, Str),
-  writeln(Str).
+  pp_fields(Chars, String).
 
 is_turn(Turn) :-
   Turn = pdn_object(turn, _).
@@ -61,13 +62,17 @@ color_turns(
   color_turns(Rest, Colored).
 
 main(Argv) :-
-  nth0(1, Argv, File),
+  nth0(0, Argv, File),
   read_file_to_string(File, String, []),
+  main_string(String, _).
+
+main_string(String, PrettyBoard) :-
   pdn_objects(String, Objects),
   include(is_turn, Objects, A),
   maplist(to_turn, A, Turns),
   color_turns(Turns, Colored),
-  dammen:perform(Colored, _).
+  dammen:perform(Colored, BoardOut),
+  pp_board(BoardOut, PrettyBoard).
 
 wrap(Str, Surrounded, Start, After) :-
   catch((

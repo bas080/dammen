@@ -5,7 +5,7 @@ source <(./t/test-dependencies.sh)
 plan 1
 
 swipl \
-  -l src/pdn.pl \
+  -s src/pdn.pl \
   -g 'run_tests.' \
   -t 'halt.' 2>&1 | diagnostics
 
